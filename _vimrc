@@ -313,12 +313,6 @@ set tags=./tags
 set autochdir
 "set tags+=D:\Workarea\Project\HacLink\HacLink\tags
 
-" 按下F8重新生成tag文件，并更新taglist
-map <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
-imap <F8> <ESC>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
-set tags=tags;
-set autochdir
-
 """"""""""""""""""""""""""""""
 " airline插件的设定
 """"""""""""""""""""""""""""""
