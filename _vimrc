@@ -380,3 +380,14 @@ let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:Doxygen_enhanced_color=1
 let g:DoxygenToolkit_blockHeader="==============================="
 let g:DoxygenToolkit_blockFooter="===================================="
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+"NERDTree¿ì½Ý¼ü
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+"set encoding=utf-8
+nmap <F2> :NERDTree  <CR>
+" NERDTree.vim
+let g:NERDTreeWinPos="left"
+let g:NERDTreeWinSize=25
+let g:NERDTreeShowLineNumbers=1
+let g:neocomplcache_enable_at_startup = 1
