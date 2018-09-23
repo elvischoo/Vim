@@ -9,18 +9,6 @@
 " 一般设定 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""
-"解决windows下的中文乱码问题
-"""""""""""""""""""""""""""""
-
-"解决中文菜单乱码
-set langmenu=zh_CN.utf-8
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-"解决console输出乱码
-language messages zh_CN.utf-8
-
 " 启动的时候不显示那个援助索马里儿童的提示 
 set shortmess=atI
 
@@ -152,6 +140,18 @@ set formatoptions+=m
 
 " 合并两行中文时，不在中间加空格：
 set formatoptions+=B
+
+"""""""""""""""""""""""""""""
+"解决windows下的中文乱码问题
+"""""""""""""""""""""""""""""
+
+"解决中文菜单乱码
+set langmenu=zh_CN.utf-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"解决console输出乱码
+language messages zh_CN.utf-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 搜索和匹配 
