@@ -1,3 +1,10 @@
+"========================================  
+" File Name: .vimrc  
+" Author: Elvis 
+" Description: Vim配置文档  
+" Date: 2018.9.23  
+"======================================== 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 一般设定 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -5,7 +12,6 @@
 """""""""""""""""""""""""""""
 "解决windows下的中文乱码问题
 """""""""""""""""""""""""""""
-set fileencodings=utf-8,gbk,chinese
 
 "解决中文菜单乱码
 set langmenu=zh_CN.utf-8
@@ -26,9 +32,6 @@ set noerrorbells
 
 "不要使用vi的键盘模式，而是vim自己的
 set nocompatible
-
-
-set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
 
 " 开启语法高亮  
 syntax enable  
@@ -120,12 +123,35 @@ set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
 " 命令行（在状态行下）的高度，默认为1，这里是2 
 set cmdheight=2 
 
-
 " 使回格键（backspace）正常处理indent, eol, start等 
 set backspace=2 
 
 " 允许backspace和光标键跨越行边界 
 set whichwrap+=<,>,h,l 
+
+""""""""""""""""""""""""""""""
+" FileEncode Settings
+""""""""""""""""""""""""""""""
+
+" 设置编码方式  
+set encoding=utf-8  
+
+" 设置打开文件的编码格式  
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1,gbk,chinese  
+
+set helplang=cn 
+
+" 只对终端影响(默认)
+set termencoding=utf-8
+
+" use UNIX as the standard file type
+set ffs=unix,dos,mac
+
+" 如遇Unicode值大于255的文本，不必等到空格再折行。
+set formatoptions+=m
+
+" 合并两行中文时，不在中间加空格：
+set formatoptions+=B
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 搜索和匹配 
@@ -154,16 +180,16 @@ set scrolloff=3
 " 不要闪烁 
 set novisualbell 
 
+""""""""""""""""""""""""""""""
+" Display Settings
+""""""""""""""""""""""""""""""
+
 " 我的状态行显示的内容（包括文件类型和解码） 
 set statusline=%F%m%r%h%w\[POS=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")} 
 
 " 总是显示状态行 
 set laststatus=2 
 
-"==========================================
-" Display Settings
-"==========================================
-"
 " 显示当前行号和列号
 set ruler
 
@@ -227,8 +253,8 @@ set foldmethod=manual
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
 
 "设定自动保存折叠
-au BufWinLeave *.* silent mkview
-au BufWinEnter *.* silent! loadview
+"au BufWinLeave *.* silent mkview
+"au BufWinEnter *.* silent! loadview
 
 " 设置C/C++方式自动对齐  
 set autoindent  
@@ -253,14 +279,58 @@ set smarttab
 " 不在单词中间折行  
 set lbr  
 
+""""""""""""""""""""""""""""""
+" Theme Settings
+""""""""""""""""""""""""""""""
+
+" Set extra options when running in GUI mode
+"if has("gui_running")
+"    set guifont=Monaco\ 12
+"    set guioptions-=T
+"    set guioptions+=e
+"    set guioptions-=r
+"    set guioptions-=L
+"    set guitablabel=%M\ %t
+"    set showtabline=1 
+"    set linespace=2 
+"    set noimd   
+"    set t_Co=256
+"endif
+
+" 设置主题  
+set background=dark
+colorscheme molokai  
+"colorscheme solarized
+set t_Co=256
+
 " 设置字体
 set gfn=Consolas:h12
 au GUIEnter * simalt ~x  "窗口最大化
 
-set guioptions -=m
-set guioptions -=T
+" 添加水平滚动条  
+"set guioptions+=b  
 
-colorscheme torte
+" 取消菜单栏和导航栏  
+set guioptions-=m  
+set guioptions-=T  
+
+" 去除左右两边滚动条
+set go-=r
+set go-=L
+
+" 设置水平行数和竖直列数  
+set lines=35  
+set columns=99  
+
+" 使pathogen生效(插件管理器,只需将插件放入bundle，将pathogen.vim放入autoload即可)  
+"execute pathogen#infect() 
+
+""""""""""""""""""""""""""""""
+" Other Settings
+""""""""""""""""""""""""""""""
+
+autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
+"autocmd! bufwritepost .vimrc source %    " .vimrc修改之后自动加载(Linux)
 
 """"""""""""""""""""""""""""""
 "括号自动补全
@@ -291,20 +361,39 @@ else
 endif
 
 let Tlist_Ctags_Cmd = 'C:\Program Files (x86)\Vim\vim73e\ctags'
-"let Tlist_Show_One_File=1
 
-" 如果只有一个buffer，kill窗口也kill掉buffer
+" 显示一个文件的tag 
+let Tlist_Show_One_File=1
+
+" 当只剩下Tlist的时候自动关闭
 let Tlist_Exit_OnlyWindow=1
 
 " 在右侧显示窗口
 let Tlist_Use_Right_Window = 1
 
+" 自动打开TagList的window  
+let Tlist_Auto_Open=0
+
 " 压缩方式
 let Tlist_Compact_Format = 0
 
-" 自动打开
-let Tlist_Auto_Open = 1
+" 打开tags用单击 
 let Tlist_Use_SingleClick = 1
+
+" close tag folders for inactive buffers  
+let Tlist_File_Fold_Auto_Close=1
+ 
+" show the fold indiactor column in the taglist window  
+let Tlist_Enable_Fold_Column=1
+
+" 自动更新TagList包含最新编辑的文件  
+let Tlist_Auto_Update=1
+
+" 按照名称排序  
+let Tlist_Sort_Type="name"
+
+" 让TagList始终解释文件中的tag,不管TagList窗口有没有打开  
+let Tlist_Process_File_Always=1 
 
 " 窗口宽度
 let Tlist_WinWidth = 20
@@ -312,6 +401,8 @@ nnoremap <silent> <A-4> :TlistToggle<CR>
 set tags=./tags
 set autochdir
 "set tags+=D:\Workarea\Project\HacLink\HacLink\tags
+" 手动刷新tags
+nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
 
 """"""""""""""""""""""""""""""
 " airline插件的设定
@@ -378,16 +469,24 @@ let g:DoxygenToolkit_returnTag="@Returns: "
 let g:DoxygenToolkit_authorName="xxxxx: "
 let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:Doxygen_enhanced_color=1
-let g:DoxygenToolkit_blockHeader="==============================="
+let g:DoxygenToolkit_blockHeader="===================================="
 let g:DoxygenToolkit_blockFooter="===================================="
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 "NERDTree快捷键
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"set encoding=utf-8
+set encoding=utf-8
 nmap <F2> :NERDTree  <CR>
 " NERDTree.vim
 let g:NERDTreeWinPos="left"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:neocomplcache_enable_at_startup = 1
+let NERDTreeHighlightCursorline=1
+nnoremap <leader>n :NERDTreeToggle<CR>  
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif 
+
+""""""""""""""""""""""""""""""
+" closetag settings 自动补全html/xml标签
+""""""""""""""""""""""""""""""
+au FileType html,xml so C:\Program Files (x86)\Vim\vim81\plugin\html_autoclosetag.vim
