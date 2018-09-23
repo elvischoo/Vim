@@ -439,7 +439,7 @@ autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set 
 autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
 autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
 autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
+"autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
 autocmd BufReadPost * 
 \ if line("'\"") > 0 && line("'\"") <= line("$") | 
 \ exe " normal g`\"" | 
@@ -489,4 +489,31 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 """"""""""""""""""""""""""""""
 " closetag settings 自动补全html/xml标签
 """"""""""""""""""""""""""""""
-au FileType html,xml so C:\Program Files (x86)\Vim\vim81\plugin\html_autoclosetag.vim
+:let g:closetag_html_style=1 
+:source $VIMRUNTIME/plugin/closetag.vim 
+au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
+
+""""""""""""""""""""""""""""""
+"syntastic
+""""""""""""""""""""""""""""""
+"设置error和warning的标志
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol='?'
+let g:syntastic_warning_symbol='?'
+"总是打开Location List（相当于QuickFix）窗口，如果你发现syntastic因为与其他插件冲突而经常崩溃，将下面选项置0
+let g:syntastic_always_populate_loc_list = 1
+"自动打开Locaton List，默认值为2，表示发现错误时不自动打开，当修正以后没有再发现错误时自动关闭，置1表示自动打开自动关闭，0表示关闭自动打开和自动关闭，3表示自动打开，但不自动关闭
+let g:syntastic_auto_loc_list = 1
+"修改Locaton List窗口高度
+let g:syntastic_loc_list_height = 5
+"打开文件时自动进行检查
+let g:syntastic_check_on_open = 1
+"自动跳转到发现的第一个错误或警告处
+let g:syntastic_auto_jump = 1
+"进行实时检查，如果觉得卡顿，将下面的选项置为1
+let g:syntastic_check_on_wq = 0
+"高亮错误
+let g:syntastic_enable_highlighting=1
+"让syntastic支持C++11
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
