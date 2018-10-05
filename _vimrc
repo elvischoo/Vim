@@ -517,3 +517,28 @@ let g:syntastic_enable_highlighting=1
 "让syntastic支持C++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+""""""""""""""""""""""""""""""
+"html
+""""""""""""""""""""""""""""""
+
+"xhtml compatible tags to be defined
+:let g:do_xhtml_mappings = 'yes'
+:let g:no_html_tab_mapping = 'yes'
+:let g:no_html_toolbar = 'yes'
+:let g:html_tag_case_autodetect = 'yes'
+"html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
+:let g:html_tag_case = 'lowercase'
+":let g:html_map_leader = g:maplocalleader
+:let g:html_map_entity_leader = '\'
+:let g:no_html_map_override = 'yes'
+:let g:no_html_maps = '^\(;ah\|;im\|;H\d\)$'
+:let g:no_html_menu = 'yes'
+:let g:force_html_menu = 'yes'
+":let g:html_authorname  = 'John Smith'
+":let g:html_authoremail = 'jsmith@example.com'
+:let g:html_bgcolor     = '#FFFFFF'
+:let g:html_textcolor   = '#000000'
+:let g:html_linkcolor   = '#0000EE'
+:let g:html_alinkcolor  = '#FF0000'
+:let g:html_vlinkcolor  = '#990066'
