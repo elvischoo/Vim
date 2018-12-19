@@ -1,14 +1,14 @@
 " Vim color file
 "
-" Author: Tomas Restrepo <tomas@winterdom.com>
-" https://github.com/tomasr/molokai
-"
 " Note: Based on the Monokai theme for TextMate
 " by Wimer Hazenberg and its darker variant
 " by Hamish Stuart Macpherson
 "
 
 hi clear
+
+set background=dark
+set t_Co=256  "告知molokai,终端支持256色
 
 if version > 580
     " no guarantees for version 5.8 and below, but this makes it stop
@@ -270,7 +270,3 @@ if &t_Co > 255
        hi SpecialKey      ctermfg=239
    endif
 end
-
-" Must be at the end, because of ctermbg=234 bug.
-" https://groups.google.com/forum/#!msg/vim_dev/afPqwAFNdrU/nqh6tOM87QUJ
-set background=dark
