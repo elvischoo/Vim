@@ -1,80 +1,80 @@
 "========================================  
 " File Name: .vimrc  
 " Author: Elvis 
-" Description: VimÅäÖÃÎÄµµ  
+" Description: Vimé…ç½®æ–‡æ¡£  
 " Date: 2018.9.23  
 "======================================== 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" Ò»°ãÉè¶¨ 
+" ä¸€èˆ¬è®¾å®š 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Æô¶¯µÄÊ±ºò²»ÏÔÊ¾ÄÇ¸öÔ®ÖúË÷ÂíÀï¶ùÍ¯µÄÌáÊ¾ 
+" å¯åŠ¨çš„æ—¶å€™ä¸æ˜¾ç¤ºé‚£ä¸ªæ´åŠ©ç´¢é©¬é‡Œå„¿ç«¥çš„æç¤º 
 set shortmess=atI
 
-" Í¨¹ıÊ¹ÓÃ: commandsÃüÁî£¬¸æËßÎÒÃÇÎÄ¼şµÄÄÄÒ»ĞĞ±»¸Ä±ä¹ı 
+" é€šè¿‡ä½¿ç”¨: commandså‘½ä»¤ï¼Œå‘Šè¯‰æˆ‘ä»¬æ–‡ä»¶çš„å“ªä¸€è¡Œè¢«æ”¹å˜è¿‡ 
 set report=0 
 
-" ²»ÈÃvim·¢³öÌÖÑáµÄµÎµÎÉù 
+" ä¸è®©vimå‘å‡ºè®¨åŒçš„æ»´æ»´å£° 
 set noerrorbells
 
-"²»ÒªÊ¹ÓÃviµÄ¼üÅÌÄ£Ê½£¬¶øÊÇvim×Ô¼ºµÄ
+"ä¸è¦ä½¿ç”¨viçš„é”®ç›˜æ¨¡å¼ï¼Œè€Œæ˜¯vimè‡ªå·±çš„
 set nocompatible
 
-" ¿ªÆôÓï·¨¸ßÁÁ  
+" å¼€å¯è¯­æ³•é«˜äº®  
 syntax enable  
 
-" ¿ªÆôÓï·¨¸ßÁÁ
+" å¼€å¯è¯­æ³•é«˜äº®
 syntax on  
 
-" ±£´æÈ«¾Ö±äÁ¿ 
+" ä¿å­˜å…¨å±€å˜é‡ 
 set viminfo+=!
 
-" ´øÓĞÈçÏÂ·ûºÅµÄµ¥´Ê²»Òª±»»»ĞĞ·Ö¸î 
+" å¸¦æœ‰å¦‚ä¸‹ç¬¦å·çš„å•è¯ä¸è¦è¢«æ¢è¡Œåˆ†å‰² 
 set iskeyword+=_,$,@,%,#,-
 
-" ÉèÖÃ×ÖÌå  
+" è®¾ç½®å­—ä½“  
 "set guifont=Monaco\ 12
 set guifont=Consolas\ 
 
-" ¸ßÁÁ×Ö·û£¬ÈÃÆä²»ÊÜ100ÁĞÏŞÖÆ 
+" é«˜äº®å­—ç¬¦ï¼Œè®©å…¶ä¸å—100åˆ—é™åˆ¶ 
 :highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white 
 :match OverLength '\%101v.*' 
 
-" ×´Ì¬ĞĞÑÕÉ« 
+" çŠ¶æ€è¡Œé¢œè‰² 
 highlight StatusLine guifg=SlateBlue guibg=Yellow 
 highlight StatusLineNC guifg=Gray guibg=White 
 
-" ÉèÖÃÀúÊ·¼ÇÂ¼ÌõÊı  
+" è®¾ç½®å†å²è®°å½•æ¡æ•°  
 set history=2000  
 
-" ¼ì²âÎÄ¼şÀàĞÍ  
+" æ£€æµ‹æ–‡ä»¶ç±»å‹  
 filetype on  
 
-" Õë¶Ô²»Í¬µÄÎÄ¼ş£¬²ÉÓÃ²»Í¬µÄËõ½ø·½Ê½  
+" é’ˆå¯¹ä¸åŒçš„æ–‡ä»¶ï¼Œé‡‡ç”¨ä¸åŒçš„ç¼©è¿›æ–¹å¼  
 filetype indent on  
 
-" ÔØÈëÎÄ¼şÀàĞÍ²å¼ş 
+" è½½å…¥æ–‡ä»¶ç±»å‹æ’ä»¶ 
 filetype plugin on  
 
-" Æô¶¯×Ô¶¯²¹È«
+" å¯åŠ¨è‡ªåŠ¨è¡¥å…¨
 filetype plugin indent on
 
-" ÎÄ¼şĞŞ¸ÄÖ®ºó×Ô¶¯¶ÁÈë
+" æ–‡ä»¶ä¿®æ”¹ä¹‹åè‡ªåŠ¨è¯»å…¥
 set autoread
 
-" Æô¶¯ºó²»ÏÔÊ¾ÌáÊ¾
+" å¯åŠ¨åä¸æ˜¾ç¤ºæç¤º
 "set shortmess=atI
 
-" ÉèÖÃÈ¡Ïû±¸·İ£¬½ûÖ¹ÁÙÊ±ÎÄ¼şÉú³É  
+" è®¾ç½®å–æ¶ˆå¤‡ä»½ï¼Œç¦æ­¢ä¸´æ—¶æ–‡ä»¶ç”Ÿæˆ  
 set nobackup  
 set noswapfile
 
-" ²»ÒªÉú³ÉswapÎÄ¼ş£¬µ±buffer±»¶ªÆúµÄÊ±ºòÒş²ØËü 
+" ä¸è¦ç”Ÿæˆswapæ–‡ä»¶ï¼Œå½“bufferè¢«ä¸¢å¼ƒçš„æ—¶å€™éšè—å®ƒ 
 setlocal noswapfile 
 set bufhidden=hide 
 
-" ×Ö·û¼ä²åÈëµÄÏñËØĞĞÊıÄ¿ 
+" å­—ç¬¦é—´æ’å…¥çš„åƒç´ è¡Œæ•°ç›® 
 set linespace=0
 
 " create undo file
@@ -87,196 +87,196 @@ endif
 
 "set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
-" ÏÔÊ¾µ±Ç°ºáÊúÏß  
+" æ˜¾ç¤ºå½“å‰æ¨ªç«–çº¿  
 "set cursorline  
 "set cursorcolumn  
 
-" ÉèÖÃÍË³öVimÖ®ºóÄÚÈİÏÔÊ¾ÔÚÖÕ¶ËÆÁÄ»£¬¿ÉÒÔÓÃÓÚ²é¿´ºÍ¸´ÖÆ
-" ºÃ´¦:ÎóÉ¾Ê²Ã´£¬Èç¹ûÒÔÇ°ÆÁÄ»´ò¿ª¿ÉÒÔÓÃÀ´ÕÒ»Ø
+" è®¾ç½®é€€å‡ºVimä¹‹åå†…å®¹æ˜¾ç¤ºåœ¨ç»ˆç«¯å±å¹•ï¼Œå¯ä»¥ç”¨äºæŸ¥çœ‹å’Œå¤åˆ¶
+" å¥½å¤„:è¯¯åˆ ä»€ä¹ˆï¼Œå¦‚æœä»¥å‰å±å¹•æ‰“å¼€å¯ä»¥ç”¨æ¥æ‰¾å›
 " set t_ti= t_te=
 
-" ÉèÖÃÔÚVimÖĞ¿ÉÒÔÊ¹ÓÃÊó±ê£¬·ÀÖ¹ÖÕ¶ËÎŞ·¨¿½±´  
-" ¿ÉÒÔÔÚbufferµÄÈÎºÎµØ·½Ê¹ÓÃÊó±ê£¨ÀàËÆofficeÖĞÔÚ¹¤×÷ÇøË«»÷Êó±ê¶¨Î»£© 
+" è®¾ç½®åœ¨Vimä¸­å¯ä»¥ä½¿ç”¨é¼ æ ‡ï¼Œé˜²æ­¢ç»ˆç«¯æ— æ³•æ‹·è´  
+" å¯ä»¥åœ¨bufferçš„ä»»ä½•åœ°æ–¹ä½¿ç”¨é¼ æ ‡ï¼ˆç±»ä¼¼officeä¸­åœ¨å·¥ä½œåŒºåŒå‡»é¼ æ ‡å®šä½ï¼‰ 
 set mouse=a 
 set selection=exclusive 
 set selectmode=mouse,key 
 
-" Óëwindows¹²Ïí¼ôÌù°å 
+" ä¸windowså…±äº«å‰ªè´´æ¿ 
 set clipboard+=unnamed
 
-" ÔÚ×´Ì¬ĞĞÉÏÏÔÊ¾¹â±êËùÔÚÎ»ÖÃµÄĞĞºÅºÍÁĞºÅ 
+" åœ¨çŠ¶æ€è¡Œä¸Šæ˜¾ç¤ºå…‰æ ‡æ‰€åœ¨ä½ç½®çš„è¡Œå·å’Œåˆ—å· 
 set ruler 
 set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%) 
 
-" ÃüÁîĞĞ£¨ÔÚ×´Ì¬ĞĞÏÂ£©µÄ¸ß¶È£¬Ä¬ÈÏÎª1£¬ÕâÀïÊÇ2 
+" å‘½ä»¤è¡Œï¼ˆåœ¨çŠ¶æ€è¡Œä¸‹ï¼‰çš„é«˜åº¦ï¼Œé»˜è®¤ä¸º1ï¼Œè¿™é‡Œæ˜¯2 
 set cmdheight=2 
 
-" Ê¹»Ø¸ñ¼ü£¨backspace£©Õı³£´¦Àíindent, eol, startµÈ 
+" ä½¿å›æ ¼é”®ï¼ˆbackspaceï¼‰æ­£å¸¸å¤„ç†indent, eol, startç­‰ 
 set backspace=2 
 
-" ÔÊĞíbackspaceºÍ¹â±ê¼ü¿çÔ½ĞĞ±ß½ç 
+" å…è®¸backspaceå’Œå…‰æ ‡é”®è·¨è¶Šè¡Œè¾¹ç•Œ 
 set whichwrap+=<,>,h,l 
 
 """"""""""""""""""""""""""""""
 " FileEncode Settings
 """"""""""""""""""""""""""""""
 
-" ÉèÖÃ±àÂë·½Ê½  
+" è®¾ç½®ç¼–ç æ–¹å¼  
 set encoding=utf-8  
 
-" ÉèÖÃ´ò¿ªÎÄ¼şµÄ±àÂë¸ñÊ½  
+" è®¾ç½®æ‰“å¼€æ–‡ä»¶çš„ç¼–ç æ ¼å¼  
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1,gbk,chinese  
 
 set helplang=cn 
 
-" Ö»¶ÔÖÕ¶ËÓ°Ïì(Ä¬ÈÏ)
+" åªå¯¹ç»ˆç«¯å½±å“(é»˜è®¤)
 set termencoding=utf-8
 
 " use UNIX as the standard file type
 set ffs=unix,dos,mac
 
-" ÈçÓöUnicodeÖµ´óÓÚ255µÄÎÄ±¾£¬²»±ØµÈµ½¿Õ¸ñÔÙÕÛĞĞ¡£
+" å¦‚é‡Unicodeå€¼å¤§äº255çš„æ–‡æœ¬ï¼Œä¸å¿…ç­‰åˆ°ç©ºæ ¼å†æŠ˜è¡Œã€‚
 set formatoptions+=m
 
-" ºÏ²¢Á½ĞĞÖĞÎÄÊ±£¬²»ÔÚÖĞ¼ä¼Ó¿Õ¸ñ£º
+" åˆå¹¶ä¸¤è¡Œä¸­æ–‡æ—¶ï¼Œä¸åœ¨ä¸­é—´åŠ ç©ºæ ¼ï¼š
 set formatoptions+=B
 
 """""""""""""""""""""""""""""
-"½â¾öwindowsÏÂµÄÖĞÎÄÂÒÂëÎÊÌâ
+"è§£å†³windowsä¸‹çš„ä¸­æ–‡ä¹±ç é—®é¢˜
 """""""""""""""""""""""""""""
 
-"½â¾öÖĞÎÄ²Ëµ¥ÂÒÂë
+"è§£å†³ä¸­æ–‡èœå•ä¹±ç 
 set langmenu=zh_CN.utf-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-"½â¾öconsoleÊä³öÂÒÂë
+"è§£å†³consoleè¾“å‡ºä¹±ç 
 language messages zh_CN.utf-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" ËÑË÷ºÍÆ¥Åä 
+" æœç´¢å’ŒåŒ¹é… 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" ¸ßÁÁÏÔÊ¾Æ¥ÅäµÄÀ¨ºÅ 
+" é«˜äº®æ˜¾ç¤ºåŒ¹é…çš„æ‹¬å· 
 set showmatch 
 
-" Æ¥ÅäÀ¨ºÅ¸ßÁÁµÄÊ±¼ä£¨µ¥Î»ÊÇÊ®·ÖÖ®Ò»Ãë£© 
+" åŒ¹é…æ‹¬å·é«˜äº®çš„æ—¶é—´ï¼ˆå•ä½æ˜¯ååˆ†ä¹‹ä¸€ç§’ï¼‰ 
 set matchtime=5 
 
-" ÔÚËÑË÷µÄÊ±ºòºöÂÔ´óĞ¡Ğ´ 
+" åœ¨æœç´¢çš„æ—¶å€™å¿½ç•¥å¤§å°å†™ 
 set ignorecase 
 
-" ²»Òª¸ßÁÁ±»ËÑË÷µÄ¾ä×Ó£¨phrases£© 
+" ä¸è¦é«˜äº®è¢«æœç´¢çš„å¥å­ï¼ˆphrasesï¼‰ 
 set nohlsearch 
 
-" ÔÚËÑË÷Ê±£¬ÊäÈëµÄ´Ê¾äµÄÖğ×Ö·û¸ßÁÁ£¨ÀàËÆfirefoxµÄËÑË÷£© 
+" åœ¨æœç´¢æ—¶ï¼Œè¾“å…¥çš„è¯å¥çš„é€å­—ç¬¦é«˜äº®ï¼ˆç±»ä¼¼firefoxçš„æœç´¢ï¼‰ 
 set incsearch 
 
-" ÊäÈë:set listÃüÁîÊÇÓ¦¸ÃÏÔÊ¾Ğ©É¶£¿ 
+" è¾“å…¥:set listå‘½ä»¤æ˜¯åº”è¯¥æ˜¾ç¤ºäº›å•¥ï¼Ÿ 
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ 
 
-" ¹â±êÒÆ¶¯µ½bufferµÄ¶¥²¿ºÍµ×²¿Ê±±£³Ö3ĞĞ¾àÀë 
+" å…‰æ ‡ç§»åŠ¨åˆ°bufferçš„é¡¶éƒ¨å’Œåº•éƒ¨æ—¶ä¿æŒ3è¡Œè·ç¦» 
 set scrolloff=3 
 
-" ²»ÒªÉÁË¸ 
+" ä¸è¦é—ªçƒ 
 set novisualbell 
 
 """"""""""""""""""""""""""""""
 " Display Settings
 """"""""""""""""""""""""""""""
 
-" ÎÒµÄ×´Ì¬ĞĞÏÔÊ¾µÄÄÚÈİ£¨°üÀ¨ÎÄ¼şÀàĞÍºÍ½âÂë£© 
+" æˆ‘çš„çŠ¶æ€è¡Œæ˜¾ç¤ºçš„å†…å®¹ï¼ˆåŒ…æ‹¬æ–‡ä»¶ç±»å‹å’Œè§£ç ï¼‰ 
 set statusline=%F%m%r%h%w\[POS=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")} 
 
-" ×ÜÊÇÏÔÊ¾×´Ì¬ĞĞ 
+" æ€»æ˜¯æ˜¾ç¤ºçŠ¶æ€è¡Œ 
 set laststatus=2 
 
-" ÏÔÊ¾µ±Ç°ĞĞºÅºÍÁĞºÅ
+" æ˜¾ç¤ºå½“å‰è¡Œå·å’Œåˆ—å·
 set ruler
 
-" ÔÚ×´Ì¬À¸ÏÔÊ¾ÕıÔÚÊäÈëµÄÃüÁî
+" åœ¨çŠ¶æ€æ æ˜¾ç¤ºæ­£åœ¨è¾“å…¥çš„å‘½ä»¤
 set showcmd
 
-" ×óÏÂ½ÇÏÔÊ¾µ±Ç°VimÄ£Ê½
+" å·¦ä¸‹è§’æ˜¾ç¤ºå½“å‰Vimæ¨¡å¼
 set showmode
 
-" ¹â±êÒÆ¶¯ÖÁÉÙ±£ÁôµÄĞĞÊı
+" å…‰æ ‡ç§»åŠ¨è‡³å°‘ä¿ç•™çš„è¡Œæ•°
 "set scrolloff=7
 
-" ÃüÁîĞĞ£¨ÔÚ×´Ì¬ĞĞÏÂ£©µÄ¸ß¶È£¬Ä¬ÈÏÎª1£¬ÕâÀïÊÇ2
+" å‘½ä»¤è¡Œï¼ˆåœ¨çŠ¶æ€è¡Œä¸‹ï¼‰çš„é«˜åº¦ï¼Œé»˜è®¤ä¸º1ï¼Œè¿™é‡Œæ˜¯2
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 
-" ×ÜÊÇÏÔÊ¾×´Ì¬À¸(PowerlineĞèÒª2ĞĞ)  
+" æ€»æ˜¯æ˜¾ç¤ºçŠ¶æ€æ (Powerlineéœ€è¦2è¡Œ)  
 set laststatus=2  
 
-" ÏÔÊ¾ĞĞºÅ  
+" æ˜¾ç¤ºè¡Œå·  
 set number  
 
-" Ö¸¶¨²»ÕÛĞĞ
+" æŒ‡å®šä¸æŠ˜è¡Œ
 set nowrap  
 
-" ÉèÖÃ´úÂëÆ¥Åä,°üÀ¨À¨ºÅÆ¥ÅäÇé¿ö  
+" è®¾ç½®ä»£ç åŒ¹é…,åŒ…æ‹¬æ‹¬å·åŒ¹é…æƒ…å†µ  
 set showmatch  
 
 " how many tenths of a second to blink when matching brackets
 " setmatchtime=2
 
-" ¿ªÆô¼°Ê±ËÑË÷(is)  
+" å¼€å¯åŠæ—¶æœç´¢(is)  
 set incsearch  
 
-" ÉèÖÃËÑË÷¸ßÁÁ(hlsearch)  
+" è®¾ç½®æœç´¢é«˜äº®(hlsearch)  
 set hls  
 
-" ÉèÖÃËÑË÷Ê±ºöÂÔ´óĞ¡Ğ´  
+" è®¾ç½®æœç´¢æ—¶å¿½ç•¥å¤§å°å†™  
 set ignorecase  
 
-" µ±ËÑË÷µÄÊ±ºò³¢ÊÔsmart  
+" å½“æœç´¢çš„æ—¶å€™å°è¯•smart  
 set smartcase  
 
 """"""""""""""""""""""""""""""
-" ÉèÖÃ´úÂëÕÛµş, Ñ¡ÖĞÒ»¿é´úÂë£¬È»ºóÊäÈëzf¼´¿ÉÕÛµşÕâÒ»¶Î´úÂë
+" è®¾ç½®ä»£ç æŠ˜å , é€‰ä¸­ä¸€å—ä»£ç ï¼Œç„¶åè¾“å…¥zfå³å¯æŠ˜å è¿™ä¸€æ®µä»£ç 
 """"""""""""""""""""""""""""""
 
 " set foldenable
-" ÕÛµş·½·¨
-" manual ÊÖ¹¤ÕÛµş
-" indent Ëõ½øÕÛµş
-" expr ±í´ïÊ½ÕÛµş
-" syntax Óï·¨ÕÛµş
-" diff ¶ÔÃ»ÓĞ¸ü¸ÄµÄÎÄ¼şÕÛµş
-" marker ±ê¼ÇÕÛµş
+" æŠ˜å æ–¹æ³•
+" manual æ‰‹å·¥æŠ˜å 
+" indent ç¼©è¿›æŠ˜å 
+" expr è¡¨è¾¾å¼æŠ˜å 
+" syntax è¯­æ³•æŠ˜å 
+" diff å¯¹æ²¡æœ‰æ›´æ”¹çš„æ–‡ä»¶æŠ˜å 
+" marker æ ‡è®°æŠ˜å 
 "set foldmethod=indent
 "set foldlevel=99
 
-"ÓÃ¿Õ¸ñ¼ü¿ª¹ØÕÛµş
+"ç”¨ç©ºæ ¼é”®å¼€å…³æŠ˜å 
 set foldenable
 set foldmethod=manual
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
 
-"Éè¶¨×Ô¶¯±£´æÕÛµş
+"è®¾å®šè‡ªåŠ¨ä¿å­˜æŠ˜å 
 "au BufWinLeave *.* silent mkview
 "au BufWinEnter *.* silent! loadview
 
-" ÉèÖÃC/C++·½Ê½×Ô¶¯¶ÔÆë  
+" è®¾ç½®C/C++æ–¹å¼è‡ªåŠ¨å¯¹é½  
 set autoindent  
 set cindent  
 set smartindent  
 
-" ÉèÖÃtab¿í¶È  
+" è®¾ç½®tabå®½åº¦  
 set tabstop=4  
 
-" ÉèÖÃ×Ô¶¯¶ÔÆë¿Õ¸ñÊı  
+" è®¾ç½®è‡ªåŠ¨å¯¹é½ç©ºæ ¼æ•°  
 set shiftwidth=4  
 
-" °´ÍË¸ñ¼üÊ±¿ÉÒÔÒ»´ÎÉ¾³ı4¸ö¿Õ¸ñ
+" æŒ‰é€€æ ¼é”®æ—¶å¯ä»¥ä¸€æ¬¡åˆ é™¤4ä¸ªç©ºæ ¼
 "set softtabstop=4
 
-" ±à¼­µÄÊ±ºò½«ËùÓĞµÄtabÉèÖÃÎª¿Õ¸ñ(expandtab)  
+" ç¼–è¾‘çš„æ—¶å€™å°†æ‰€æœ‰çš„tabè®¾ç½®ä¸ºç©ºæ ¼(expandtab)  
 set et  
 
-" Ê¹ÓÃBackspaceÖ±½ÓÉ¾³ıtab  
+" ä½¿ç”¨Backspaceç›´æ¥åˆ é™¤tab  
 set smarttab  
 
-" ²»ÔÚµ¥´ÊÖĞ¼äÕÛĞĞ  
+" ä¸åœ¨å•è¯ä¸­é—´æŠ˜è¡Œ  
 set lbr  
 
 """"""""""""""""""""""""""""""
@@ -297,43 +297,43 @@ set lbr
 "    set t_Co=256
 "endif
 
-" ÉèÖÃÖ÷Ìâ  
+" è®¾ç½®ä¸»é¢˜  
 set background=dark
 colorscheme molokai  
 "colorscheme solarized
 set t_Co=256
 
-" ÉèÖÃ×ÖÌå
+" è®¾ç½®å­—ä½“
 set gfn=Consolas:h12
-au GUIEnter * simalt ~x  "´°¿Ú×î´ó»¯
+au GUIEnter * simalt ~x  "çª—å£æœ€å¤§åŒ–
 
-" Ìí¼ÓË®Æ½¹ö¶¯Ìõ  
+" æ·»åŠ æ°´å¹³æ»šåŠ¨æ¡  
 "set guioptions+=b  
 
-" È¡Ïû²Ëµ¥À¸ºÍµ¼º½À¸  
+" å–æ¶ˆèœå•æ å’Œå¯¼èˆªæ   
 set guioptions-=m  
 set guioptions-=T  
 
-" È¥³ı×óÓÒÁ½±ß¹ö¶¯Ìõ
+" å»é™¤å·¦å³ä¸¤è¾¹æ»šåŠ¨æ¡
 set go-=r
 set go-=L
 
-" ÉèÖÃË®Æ½ĞĞÊıºÍÊúÖ±ÁĞÊı  
+" è®¾ç½®æ°´å¹³è¡Œæ•°å’Œç«–ç›´åˆ—æ•°  
 set lines=35  
 set columns=99  
 
-" Ê¹pathogenÉúĞ§(²å¼ş¹ÜÀíÆ÷,Ö»Ğè½«²å¼ş·ÅÈëbundle£¬½«pathogen.vim·ÅÈëautoload¼´¿É)  
+" ä½¿pathogenç”Ÿæ•ˆ(æ’ä»¶ç®¡ç†å™¨,åªéœ€å°†æ’ä»¶æ”¾å…¥bundleï¼Œå°†pathogen.vimæ”¾å…¥autoloadå³å¯)  
 "execute pathogen#infect() 
 
 """"""""""""""""""""""""""""""
 " Other Settings
 """"""""""""""""""""""""""""""
 
-autocmd! bufwritepost _vimrc source %    " .vimrcĞŞ¸ÄÖ®ºó×Ô¶¯¼ÓÔØ(Windows)
-"autocmd! bufwritepost .vimrc source %    " .vimrcĞŞ¸ÄÖ®ºó×Ô¶¯¼ÓÔØ(Linux)
+autocmd! bufwritepost _vimrc source %    " .vimrcä¿®æ”¹ä¹‹åè‡ªåŠ¨åŠ è½½(Windows)
+"autocmd! bufwritepost .vimrc source %    " .vimrcä¿®æ”¹ä¹‹åè‡ªåŠ¨åŠ è½½(Linux)
 
 """"""""""""""""""""""""""""""
-"À¨ºÅ×Ô¶¯²¹È«
+"æ‹¬å·è‡ªåŠ¨è¡¥å…¨
 """"""""""""""""""""""""""""""
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
@@ -362,22 +362,22 @@ endif
 
 let Tlist_Ctags_Cmd = 'C:\Program Files (x86)\Vim\vim73e\ctags'
 
-" ÏÔÊ¾Ò»¸öÎÄ¼şµÄtag 
+" æ˜¾ç¤ºä¸€ä¸ªæ–‡ä»¶çš„tag 
 let Tlist_Show_One_File=1
 
-" µ±Ö»Ê£ÏÂTlistµÄÊ±ºò×Ô¶¯¹Ø±Õ
+" å½“åªå‰©ä¸‹Tlistçš„æ—¶å€™è‡ªåŠ¨å…³é—­
 let Tlist_Exit_OnlyWindow=1
 
-" ÔÚÓÒ²àÏÔÊ¾´°¿Ú
+" åœ¨å³ä¾§æ˜¾ç¤ºçª—å£
 let Tlist_Use_Right_Window = 1
 
-" ×Ô¶¯´ò¿ªTagListµÄwindow  
+" è‡ªåŠ¨æ‰“å¼€TagListçš„window  
 let Tlist_Auto_Open=0
 
-" Ñ¹Ëõ·½Ê½
+" å‹ç¼©æ–¹å¼
 let Tlist_Compact_Format = 0
 
-" ´ò¿ªtagsÓÃµ¥»÷ 
+" æ‰“å¼€tagsç”¨å•å‡» 
 let Tlist_Use_SingleClick = 1
 
 " close tag folders for inactive buffers  
@@ -386,68 +386,68 @@ let Tlist_File_Fold_Auto_Close=1
 " show the fold indiactor column in the taglist window  
 let Tlist_Enable_Fold_Column=1
 
-" ×Ô¶¯¸üĞÂTagList°üº¬×îĞÂ±à¼­µÄÎÄ¼ş  
+" è‡ªåŠ¨æ›´æ–°TagListåŒ…å«æœ€æ–°ç¼–è¾‘çš„æ–‡ä»¶  
 let Tlist_Auto_Update=1
 
-" °´ÕÕÃû³ÆÅÅĞò  
+" æŒ‰ç…§åç§°æ’åº  
 let Tlist_Sort_Type="name"
 
-" ÈÃTagListÊ¼ÖÕ½âÊÍÎÄ¼şÖĞµÄtag,²»¹ÜTagList´°¿ÚÓĞÃ»ÓĞ´ò¿ª  
+" è®©TagListå§‹ç»ˆè§£é‡Šæ–‡ä»¶ä¸­çš„tag,ä¸ç®¡TagListçª—å£æœ‰æ²¡æœ‰æ‰“å¼€  
 let Tlist_Process_File_Always=1 
 
-" ´°¿Ú¿í¶È
+" çª—å£å®½åº¦
 let Tlist_WinWidth = 20
 nnoremap <silent> <A-4> :TlistToggle<CR>
 set tags=./tags
 set autochdir
 "set tags+=D:\Workarea\Project\HacLink\HacLink\tags
-" ÊÖ¶¯Ë¢ĞÂtags
+" æ‰‹åŠ¨åˆ·æ–°tags
 nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
 
 """"""""""""""""""""""""""""""
-" airline²å¼şµÄÉè¶¨
+" airlineæ’ä»¶çš„è®¾å®š
 """"""""""""""""""""""""""""""
-"°²×°×ÖÌåºó±ØĞëÉèÖÃ
+"å®‰è£…å­—ä½“åå¿…é¡»è®¾ç½®
 let g:airline_powerline_fonts = 1
 
-"¿ªÆôtabline
-let g:airline#extensions#tabline#enabled = 1      "tablineÖĞµ±Ç°bufferÁ½¶ËµÄ·Ö¸ô×Ö·û
-"let g:airline#extensions#tabline#left_sep = ' '   "tablineÖĞÎ´¼¤»îbufferÁ½¶ËµÄ·Ö¸ô×Ö·û
-"let g:airline#extensions#tabline#left_alt_sep = '|'      "tablineÖĞbufferÏÔÊ¾±àºÅ
+"å¼€å¯tabline
+let g:airline#extensions#tabline#enabled = 1      "tablineä¸­å½“å‰bufferä¸¤ç«¯çš„åˆ†éš”å­—ç¬¦
+"let g:airline#extensions#tabline#left_sep = ' '   "tablineä¸­æœªæ¿€æ´»bufferä¸¤ç«¯çš„åˆ†éš”å­—ç¬¦
+"let g:airline#extensions#tabline#left_alt_sep = '|'      "tablineä¸­bufferæ˜¾ç¤ºç¼–å·
 let g:airline#extensions#tabline#buffer_nr_show = 1 
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 "unicode symbols
 let g:airline_left_sep = '>'
 let g:airline_left_alt_sep = '>'
 let g:airline_right_sep = '<'
 let g:airline_right_alt_sep = '<'
-let g:airline_symbols.linenr = '¡ï'
-let g:airline_symbols.branch = '¡è'
-" Ó³ÉäÇĞ»»bufferµÄ¼üÎ»
+let g:airline_symbols.linenr = 'â˜…'
+let g:airline_symbols.branch = 'Â¤'
+" æ˜ å°„åˆ‡æ¢bufferçš„é”®ä½
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " Autocommands 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" Ö»ÔÚÏÂÁĞÎÄ¼şÀàĞÍ±»Õì²âµ½µÄÊ±ºòÏÔÊ¾ĞĞºÅ£¬ÆÕÍ¨ÎÄ±¾ÎÄ¼ş²»ÏÔÊ¾ 
+" åªåœ¨ä¸‹åˆ—æ–‡ä»¶ç±»å‹è¢«ä¾¦æµ‹åˆ°çš„æ—¶å€™æ˜¾ç¤ºè¡Œå·ï¼Œæ™®é€šæ–‡æœ¬æ–‡ä»¶ä¸æ˜¾ç¤º 
 
 if has("autocmd") 
-autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
-autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
-autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
-autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-"autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
-autocmd BufReadPost * 
-\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-\ exe " normal g`\"" | 
-\ endif 
+    autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
+    autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
+    autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
+    autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
+    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
+    autocmd BufReadPost * 
+    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
+    \ exe " normal g`\"" | 
+    \ endif 
 endif "has("autocmd")
 
 """"""""""""""""""""""""""""""
-" C/C++µÄ±àÒëÓëÔËĞĞ
+" C/C++çš„ç¼–è¯‘ä¸è¿è¡Œ
 """"""""""""""""""""""""""""""
 map <F5> :call CompileRunCpp()
 func! CompileRunCpp()
@@ -457,10 +457,10 @@ func! CompileRunCpp()
 endfun
 
 """"""""""""""""""""""""""""""
-" Doxygen×Ô¶¯Ìí¼Ó×¢ÊÍ
-" Ê¹ÓÃ·½Ê½£º
-" (1) ÔÚº¯ÊıÃûµÄÒ»ĞĞ°´fg¼ü¼´¿É×Ô¶¯Éú³ÉÈçÏÂµÄ×¢ÊÍ
-" (2) ÔÚ¹â±êÒÆ¶¯µ½Ô´ÎÄ¼şµÄ¿ªÊ¼³ö£¬È»ºóÔÚÃüÁîĞĞÏÂÊäÈë :DoxAutho	
+" Doxygenè‡ªåŠ¨æ·»åŠ æ³¨é‡Š
+" ä½¿ç”¨æ–¹å¼ï¼š
+" (1) åœ¨å‡½æ•°åçš„ä¸€è¡ŒæŒ‰fgé”®å³å¯è‡ªåŠ¨ç”Ÿæˆå¦‚ä¸‹çš„æ³¨é‡Š
+" (2) åœ¨å…‰æ ‡ç§»åŠ¨åˆ°æºæ–‡ä»¶çš„å¼€å§‹å‡ºï¼Œç„¶ååœ¨å‘½ä»¤è¡Œä¸‹è¾“å…¥ :DoxAutho	
 """"""""""""""""""""""""""""""
 map fg :Dox<CR>
 let g:DoxygenToolkit_briefTag_pre="@Breif: "
@@ -473,7 +473,7 @@ let g:DoxygenToolkit_blockHeader="===================================="
 let g:DoxygenToolkit_blockFooter="===================================="
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"NERDTree¿ì½İ¼ü
+"NERDTreeå¿«æ·é”®
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 set encoding=utf-8
 nmap <F2> :NERDTree  <CR>
@@ -487,47 +487,50 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif 
 
 """"""""""""""""""""""""""""""
-" closetag settings ×Ô¶¯²¹È«html/xml±êÇ©
+" closetag settings è‡ªåŠ¨è¡¥å…¨html/xmlæ ‡ç­¾
 """"""""""""""""""""""""""""""
 :let g:closetag_html_style=1 
-:source $VIMRUNTIME/plugin/closetag.vim 
-au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
+if filereadable("$VIMRUNTIME/plugin/closetag.vim")
+    source $VIMRUNTIME/plugin/closetag.vim
+endif
+if filereadable("$VIMRUNTIME/plugin/html_autoclosetag.vim")
+    au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
+endif
 
 """"""""""""""""""""""""""""""
 "syntastic
 """"""""""""""""""""""""""""""
-"ÉèÖÃerrorºÍwarningµÄ±êÖ¾
+"è®¾ç½®errorå’Œwarningçš„æ ‡å¿—
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol='?'
 let g:syntastic_warning_symbol='?'
-"×ÜÊÇ´ò¿ªLocation List£¨Ïàµ±ÓÚQuickFix£©´°¿Ú£¬Èç¹ûÄã·¢ÏÖsyntasticÒòÎªÓëÆäËû²å¼ş³åÍ»¶ø¾­³£±ÀÀ££¬½«ÏÂÃæÑ¡ÏîÖÃ0
+"æ€»æ˜¯æ‰“å¼€Location Listï¼ˆç›¸å½“äºQuickFixï¼‰çª—å£ï¼Œå¦‚æœä½ å‘ç°syntasticå› ä¸ºä¸å…¶ä»–æ’ä»¶å†²çªè€Œç»å¸¸å´©æºƒï¼Œå°†ä¸‹é¢é€‰é¡¹ç½®0
 let g:syntastic_always_populate_loc_list = 1
-"×Ô¶¯´ò¿ªLocaton List£¬Ä¬ÈÏÖµÎª2£¬±íÊ¾·¢ÏÖ´íÎóÊ±²»×Ô¶¯´ò¿ª£¬µ±ĞŞÕıÒÔºóÃ»ÓĞÔÙ·¢ÏÖ´íÎóÊ±×Ô¶¯¹Ø±Õ£¬ÖÃ1±íÊ¾×Ô¶¯´ò¿ª×Ô¶¯¹Ø±Õ£¬0±íÊ¾¹Ø±Õ×Ô¶¯´ò¿ªºÍ×Ô¶¯¹Ø±Õ£¬3±íÊ¾×Ô¶¯´ò¿ª£¬µ«²»×Ô¶¯¹Ø±Õ
+"è‡ªåŠ¨æ‰“å¼€Locaton Listï¼Œé»˜è®¤å€¼ä¸º2ï¼Œè¡¨ç¤ºå‘ç°é”™è¯¯æ—¶ä¸è‡ªåŠ¨æ‰“å¼€ï¼Œå½“ä¿®æ­£ä»¥åæ²¡æœ‰å†å‘ç°é”™è¯¯æ—¶è‡ªåŠ¨å…³é—­ï¼Œç½®1è¡¨ç¤ºè‡ªåŠ¨æ‰“å¼€è‡ªåŠ¨å…³é—­ï¼Œ0è¡¨ç¤ºå…³é—­è‡ªåŠ¨æ‰“å¼€å’Œè‡ªåŠ¨å…³é—­ï¼Œ3è¡¨ç¤ºè‡ªåŠ¨æ‰“å¼€ï¼Œä½†ä¸è‡ªåŠ¨å…³é—­
 let g:syntastic_auto_loc_list = 1
-"ĞŞ¸ÄLocaton List´°¿Ú¸ß¶È
+"ä¿®æ”¹Locaton Listçª—å£é«˜åº¦
 let g:syntastic_loc_list_height = 5
-"´ò¿ªÎÄ¼şÊ±×Ô¶¯½øĞĞ¼ì²é
+"æ‰“å¼€æ–‡ä»¶æ—¶è‡ªåŠ¨è¿›è¡Œæ£€æŸ¥
 let g:syntastic_check_on_open = 1
-"×Ô¶¯Ìø×ªµ½·¢ÏÖµÄµÚÒ»¸ö´íÎó»ò¾¯¸æ´¦
+"è‡ªåŠ¨è·³è½¬åˆ°å‘ç°çš„ç¬¬ä¸€ä¸ªé”™è¯¯æˆ–è­¦å‘Šå¤„
 let g:syntastic_auto_jump = 1
-"½øĞĞÊµÊ±¼ì²é£¬Èç¹û¾õµÃ¿¨¶Ù£¬½«ÏÂÃæµÄÑ¡ÏîÖÃÎª1
+"è¿›è¡Œå®æ—¶æ£€æŸ¥ï¼Œå¦‚æœè§‰å¾—å¡é¡¿ï¼Œå°†ä¸‹é¢çš„é€‰é¡¹ç½®ä¸º1
 let g:syntastic_check_on_wq = 0
-"¸ßÁÁ´íÎó
+"é«˜äº®é”™è¯¯
 let g:syntastic_enable_highlighting=1
-"ÈÃsyntasticÖ§³ÖC++11
+"è®©syntasticæ”¯æŒC++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 """"""""""""""""""""""""""""""
 "html
 """"""""""""""""""""""""""""""
-
 "xhtml compatible tags to be defined
 :let g:do_xhtml_mappings = 'yes'
 :let g:no_html_tab_mapping = 'yes'
 :let g:no_html_toolbar = 'yes'
 :let g:html_tag_case_autodetect = 'yes'
-"html tag´óĞ¡Ğ´ÉèÖÃ£¬¿ÉÒÔÉèÖÃÖµ"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
+"html tagå¤§å°å†™è®¾ç½®ï¼Œå¯ä»¥è®¾ç½®å€¼"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
 :let g:html_tag_case = 'lowercase'
 ":let g:html_map_leader = g:maplocalleader
 :let g:html_map_entity_leader = '\'
