@@ -433,7 +433,6 @@ nnoremap ]b :bn<CR>
 " Autocommands 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
-
 if has("autocmd") 
     autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
     autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
@@ -490,10 +489,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 " closetag settings 自动补全html/xml标签
 """"""""""""""""""""""""""""""
 :let g:closetag_html_style=1 
-if filereadable("$VIMRUNTIME/plugin/closetag.vim")
-    source $VIMRUNTIME/plugin/closetag.vim
+if filereadable(expand("$VIMRUNTIME/plugin/closetag.vim"))
+    au FileType html,xml source $VIMRUNTIME/plugin/closetag.vim
 endif
-if filereadable("$VIMRUNTIME/plugin/html_autoclosetag.vim")
+if filereadable(expand("$VIMRUNTIME/plugin/html_autoclosetag.vim"))
     au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
 endif
 
