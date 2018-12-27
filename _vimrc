@@ -5,9 +5,111 @@
 " Date: 2018.9.23  
 "======================================== 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" 一般设定 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================
+"        << 判断操作系统是 Windows 还是 Linux 和判断是终端还是 Gvim >>
+" =============================================================================
+
+" -----------------------------------------------------------------------------
+"  < 判断操作系统是否是 Windows 还是 Linux >
+" -----------------------------------------------------------------------------
+let g:iswindows = 0
+let g:islinux = 0
+if(has("win32") || has("win64") || has("win95") || has("win16"))
+    let g:iswindows = 1
+else
+    let g:islinux = 1
+endif
+
+" -----------------------------------------------------------------------------
+"  < 判断是终端还是 Gvim >
+" -----------------------------------------------------------------------------
+if has("gui_running")
+    let g:isGUI = 1
+else
+    let g:isGUI = 0
+endif
+
+" =============================================================================
+"                          << 以下为软件默认配置 >>
+" =============================================================================
+
+" -----------------------------------------------------------------------------
+"  < Windows Gvim 默认配置> 做了一点修改
+" -----------------------------------------------------------------------------
+if (g:iswindows && g:isGUI)
+    source $VIMRUNTIME/vimrc_example.vim
+    source $VIMRUNTIME/mswin.vim
+    behave mswin
+    set diffexpr=MyDiff()
+
+    function MyDiff()
+        let opt = '-a --binary '
+        if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+        if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+        let arg1 = v:fname_in
+        if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+        let arg2 = v:fname_new
+        if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+        let arg3 = v:fname_out
+        if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+        let eq = ''
+        if $VIMRUNTIME =~ ' '
+            if &sh =~ '\<cmd'
+                let cmd = '""' . $VIMRUNTIME . '\diff"'
+                let eq = '"'
+            else
+                let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+            endif
+        else
+            let cmd = $VIMRUNTIME . '\diff'
+        endif
+        silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    endfunction
+endif
+
+" -----------------------------------------------------------------------------
+"  < Linux Gvim/Vim 默认配置> 做了一点修改
+" -----------------------------------------------------------------------------
+if g:islinux
+    set hlsearch        "高亮搜索
+    set incsearch       "在输入要搜索的文字时，实时匹配
+
+    " Uncomment the following to have Vim jump to the last position when
+    " reopening a file
+    if has("autocmd")
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    endif
+
+    if g:isGUI
+        " Source a global configuration file if available
+        if filereadable("/etc/vim/gvimrc.local")
+            source /etc/vim/gvimrc.local
+        endif
+    else
+        " This line should not be removed as it ensures that various options are
+        " properly set to work with the Vim-related packages available in Debian.
+        runtime! debian.vim
+
+        " Vim5 and later versions support syntax highlighting. Uncommenting the next
+        " line enables syntax highlighting by default.
+        if has("syntax")
+            syntax on
+        endif
+
+        set mouse=a                    " 在任何模式下启用鼠标
+        set t_Co=256                   " 在终端启用256色
+        set backspace=2                " 设置退格键可用
+
+        " Source a global configuration file if available
+        if filereadable("/etc/vim/vimrc.local")
+            source /etc/vim/vimrc.local
+        endif
+    endif
+endif
+
+" =============================================================================
+"                          << 以下为用户自定义配置 >>
+" =============================================================================
 
 " 启动的时候不显示那个援助索马里儿童的提示 
 set shortmess=atI
@@ -116,45 +218,35 @@ set whichwrap+=<,>,h,l
 " 在被分割的窗口间显示空白，便于阅读
 set fillchars=vert:\ ,stl:\ ,stlnc:\
 
-""""""""""""""""""""""""""""""
-" FileEncode Settings
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+"  < 编码配置 >
+" -----------------------------------------------------------------------------
+" 注：使用utf-8格式后，软件与程序源码、文件路径不能有中文，否则报错
 
-" 设置编码方式  
-set encoding=utf-8  
+" 设置编码方式 
+set encoding=utf-8                                    "设置gvim内部编码，默认不更改
+set fileencoding=utf-8                                "设置当前文件编码，可以更改，如：gbk（同cp936）
 
-" 设置打开文件的编码格式  
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1,gbk,chinese  
+" 设置打开文件的编码格式 
+set fileencodings=ucs-bom,utf-8,gbk,cp936,latin-1     "设置支持打开的文件的编码
 
-set helplang=cn 
+" 文件格式，默认 ffs=dos,unix
+set fileformat=unix                                   "设置新（当前）文件的<EOL>格式，可以更改，如：dos（windows系统常用）
+set fileformats=unix,dos,mac                          "给出文件的<EOL>格式类型
 
-" 只对终端影响(默认)
-set termencoding=utf-8
+if (g:iswindows && g:isGUI)
+    "解决菜单乱码
+	set langmenu=zh_CN.utf-8
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
 
-" use UNIX as the standard file type
-set ffs=unix,dos,mac
+    "解决consle输出乱码
+    language messages zh_CN.utf-8
+endif
 
-" 如遇Unicode值大于255的文本，不必等到空格再折行。
-set formatoptions+=m
-
-" 合并两行中文时，不在中间加空格：
-set formatoptions+=B
-
-"""""""""""""""""""""""""""""
-"解决windows下的中文乱码问题
-"""""""""""""""""""""""""""""
-
-"解决中文菜单乱码
-set langmenu=zh_CN.utf-8
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-"解决console输出乱码
-language messages zh_CN.utf-8
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-" 搜索和匹配 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+" ----------------------------------------------------------------------------- 
+"  < 搜索和匹配 >
+" -----------------------------------------------------------------------------
 " 高亮显示匹配的括号 
 set showmatch 
 
@@ -185,48 +277,13 @@ set scrolloff=3
 " 不要闪烁 
 set novisualbell 
 
-""""""""""""""""""""""""""""""
-" Display Settings
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+"  < 编写文件时的配置 >
+" -----------------------------------------------------------------------------
 
-" 我的状态行显示的内容（包括文件类型和解码） 
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"启用折叠
+set foldenable
 
-" 总是显示状态行 
-set laststatus=2 
-
-" 显示当前行号和列号
-set ruler
-
-" 在状态栏显示正在输入的命令
-set showcmd
-
-" 左下角显示当前Vim模式
-set showmode
-
-" 光标移动至少保留的行数
-"set scrolloff=7
-
-" 命令行（在状态行下）的高度，默认为1，这里是2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-
-" 总是显示状态栏(Powerline需要2行)  
-set laststatus=2
-
-" 显示行号  
-set number
-
-" 指定不折行
-set nowrap  
-
-" 设置代码匹配,包括括号匹配情况  
-set showmatch 
-
-""""""""""""""""""""""""""""""
-" 设置代码折叠, 选中一块代码，然后输入zf即可折叠这一段代码
-""""""""""""""""""""""""""""""
-
-" set foldenable
 " 折叠方法
 " manual 手工折叠
 " indent 缩进折叠
@@ -234,12 +291,11 @@ set showmatch
 " syntax 语法折叠
 " diff 对没有更改的文件折叠
 " marker 标记折叠
-"set foldmethod=indent
-"set foldlevel=99
+set foldmethod=manual
 
 "用空格键开关折叠
-set foldenable
-set foldmethod=manual
+" 常规模式下用空格键来开关光标行所在折叠（注：zR 展开所有折叠，zM 关闭所有折叠）
+"设置代码折叠, 选中一块代码，然后输入zf即可折叠这一段代码
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
 
 "设定自动保存折叠
@@ -267,25 +323,51 @@ set et
 set smarttab  
 
 " 不在单词中间折行  
-set lbr  
+set lbr
 
-""""""""""""""""""""""""""""""
-" Theme Settings
-""""""""""""""""""""""""""""""
+" 常规模式下输入 cS 清除行尾空格
+nmap cS :%s/\s\+$//g<CR>:noh<CR>
 
-" Set extra options when running in GUI mode
-"if has("gui_running")
-"    set guifont=Monaco\ 12
-"    set guioptions-=T
-"    set guioptions+=e
-"    set guioptions-=r
-"    set guioptions-=L
-"    set guitablabel=%M\ %t
-"    set showtabline=1 
-"    set linespace=2 
-"    set noimd   
-"    set t_Co=256
-"endif
+" 常规模式下输入 cM 清除行尾 ^M 符号
+nmap cM :%s/\r$//g<CR>:noh<CR>
+
+" Ctrl + K 插入模式下光标向上移动
+imap <c-k> <Up>
+
+" Ctrl + J 插入模式下光标向下移动
+imap <c-j> <Down>
+
+" Ctrl + H 插入模式下光标向左移动
+imap <c-h> <Left>
+
+" Ctrl + L 插入模式下光标向右移动
+imap <c-l> <Right>
+
+" 启用每行超过80列的字符提示（字体变蓝并加下划线），不启用就注释掉
+au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+
+" -----------------------------------------------------------------------------
+"  < 界面配置 >
+" -----------------------------------------------------------------------------
+
+" 显示/隐藏菜单栏、工具栏、滚动条，可用 Ctrl + F11 切换
+if g:isGUI
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    nmap <silent> <c-F11> :if &guioptions =~# 'm' <Bar>
+        \set guioptions-=m <Bar>
+        \set guioptions-=T <Bar>
+        \set guioptions-=r <Bar>
+        \set guioptions-=L <Bar>
+    \else <Bar>
+        \set guioptions+=m <Bar>
+        \set guioptions+=T <Bar>
+        \set guioptions+=r <Bar>
+        \set guioptions+=L <Bar>
+    \endif<CR>
+endif
 
 "不要图形按钮
 set go=
@@ -299,9 +381,15 @@ colorscheme molokai
 "colorscheme solarized
 set t_Co=256
 
+" 设置 gVim 窗口初始位置及大小
+if g:isGUI
+    " au GUIEnter * simalt ~x                           "窗口启动时自动最大化
+    winpos 100 10                                     "指定窗口出现的位置，坐标原点在屏幕左上角
+    set lines=38 columns=120                          "指定窗口大小，lines为高度，columns为宽度
+endif
+
 " 设置字体
 set gfn=Consolas:h12
-au GUIEnter * simalt ~x  "窗口最大化
 
 " 添加水平滚动条  
 "set guioptions+=b  
@@ -317,6 +405,36 @@ set go-=L
 " 设置水平行数和竖直列数  
 set lines=35  
 set columns=99  
+
+" 我的状态行显示的内容（包括文件类型和解码） 
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+
+" 总是显示状态行 
+set laststatus=2 
+
+" 显示当前行号和列号
+set ruler
+
+" 在状态栏显示正在输入的命令
+set showcmd
+
+" 左下角显示当前Vim模式
+set showmode
+
+" 光标移动至少保留的行数
+"set scrolloff=7
+
+" 命令行（在状态行下）的高度，默认为1，这里是2
+set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+
+" 显示行号  
+set number
+
+" 指定不折行
+set nowrap  
+
+" 设置代码匹配,包括括号匹配情况  
+set showmatch 
 
 " 使pathogen生效(插件管理器,只需将插件放入bundle，将pathogen.vim放入autoload即可)  
 "execute pathogen#infect() 
@@ -368,9 +486,9 @@ au FileType javascript setlocal dict+=~/.vim/dict/javascript.dict
 au FileType html setlocal dict+=~/.vim/dict/javascript.dict
 au FileType html setlocal dict+=~/.vim/dict/css.dict
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""新文件标题
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+"  < 新文件自动插入文件头 >
+" -----------------------------------------------------------------------------
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
@@ -422,9 +540,13 @@ func SetTitle()
 endfunc 
 autocmd BufNewFile * normal G
 
-""""""""""""""""""""""""""""""
+" =============================================================================
+"                          << 以下为常用插件配置 >>
+" =============================================================================
+
+" -----------------------------------------------------------------------------
 " Tag list (ctags)
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 if (has("gui_running"))
 	let Tlist_Ctags_Cmd = 'ctags'
 else
@@ -475,9 +597,9 @@ set autochdir
 " 手动刷新tags
 nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
 
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 " airline插件的设定
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 "安装字体后必须设置
 let g:airline_powerline_fonts = 1
 
@@ -495,14 +617,14 @@ let g:airline_left_alt_sep = '>'
 let g:airline_right_sep = '◄'
 let g:airline_right_alt_sep = '<'
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '♚'
+let g:airline_symbols.branch = '⎇'
 " 映射切换buffer的键位
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+" -----------------------------------------------------------------------------
 " Autocommands 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+" -----------------------------------------------------------------------------
 " 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
 if has("autocmd") 
     autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
@@ -618,12 +740,12 @@ func FormartSrc()
 endfunc
 "结束定义FormartSrc
 
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 " Doxygen自动添加注释
 " 使用方式：
 " (1) 在函数名的一行按fg键即可自动生成如下的注释
 " (2) 在光标移动到源文件的开始出，然后在命令行下输入 :DoxAutho	
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 map fg :Dox<CR>
 let g:DoxygenToolkit_briefTag_pre="@Breif: "
 let g:DoxygenToolkit_paramTag_pre="@Param: "
@@ -634,9 +756,9 @@ let g:Doxygen_enhanced_color=1
 let g:DoxygenToolkit_blockHeader="===================================="
 let g:DoxygenToolkit_blockFooter="===================================="
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"NERDTree快捷键
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+" ----------------------------------------------------------------------------- 
+" NERDTree快捷键
+" -----------------------------------------------------------------------------
 set encoding=utf-8
 nmap <F2> :NERDTree  <CR>
 " NERDTree.vim
@@ -649,9 +771,9 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 "只剩 NERDTree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif 
 
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 " closetag settings 自动补全html/xml标签
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 :let g:closetag_html_style=1 
 if filereadable(expand("$VIMRUNTIME/plugin/closetag.vim"))
     au FileType html,xml source $VIMRUNTIME/plugin/closetag.vim
@@ -660,9 +782,9 @@ if filereadable(expand("$VIMRUNTIME/plugin/html_autoclosetag.vim"))
     au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
 endif
 
-""""""""""""""""""""""""""""""
-"syntastic
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+" syntastic
+" -----------------------------------------------------------------------------
 "设置error和warning的标志
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol='?'
@@ -685,9 +807,9 @@ let g:syntastic_enable_highlighting=1
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-""""""""""""""""""""""""""""""
-"html
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
+" html
+" -----------------------------------------------------------------------------
 "xhtml compatible tags to be defined
 :let g:do_xhtml_mappings = 'yes'
 :let g:no_html_tab_mapping = 'yes'
@@ -708,3 +830,40 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 :let g:html_linkcolor   = '#0000EE'
 :let g:html_alinkcolor  = '#FF0000'
 :let g:html_vlinkcolor  = '#990066'
+
+" =============================================================================
+"                          << 以下为常用自动命令配置 >>
+" =============================================================================
+
+" 自动切换目录为当前编辑文件所在目录
+au BufRead,BufNewFile,BufEnter * cd %:p:h
+
+" =============================================================================
+"                     << windows 下解决 Quickfix 乱码问题 >>
+" =============================================================================
+" windows 默认编码为 cp936，而 Gvim(Vim) 内部编码为 utf-8，所以常常输出为乱码
+" 以下代码可以将编码为 cp936 的输出信息转换为 utf-8 编码，以解决输出乱码问题
+" 但好像只对输出信息全部为中文才有满意的效果，如果输出信息是中英混合的，那可能
+" 不成功，会造成其中一种语言乱码，输出信息全部为英文的好像不会乱码
+" 如果输出信息为乱码的可以试一下下面的代码，如果不行就还是给它注释掉
+
+" if g:iswindows
+"     function QfMakeConv()
+"         let qflist = getqflist()
+"         for i in qflist
+"            let i.text = iconv(i.text, "cp936", "utf-8")
+"         endfor
+"         call setqflist(qflist)
+"      endfunction
+"      au QuickfixCmdPost make call QfMakeConv()
+" endif
+
+" =============================================================================
+"                          << 其它 >>
+" =============================================================================
+" 注：上面配置中的"<Leader>"在本软件中设置为"\"键（引号里的反斜杠），如<Leader>t
+" 指在常规模式下按"\"键加"t"键，这里不是同时按，而是先按"\"键后按"t"键，间隔在一
+" 秒内，而<Leader>cs是先按"\"键再按"c"又再按"s"键；如要修改"<leader>"键，可以把
+" 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
+
+" let mapleader = ","
