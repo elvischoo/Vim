@@ -314,7 +314,7 @@ set tabstop=4
 set shiftwidth=4  
 
 " 按退格键时可以一次删除4个空格
-"set softtabstop=4
+set softtabstop=4
 
 " 编辑的时候将所有的tab设置为空格(expandtab)  
 set et  
@@ -442,9 +442,11 @@ set showmatch
 """"""""""""""""""""""""""""""
 " Other Settings
 """"""""""""""""""""""""""""""
-
-autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
-"autocmd! bufwritepost .vimrc source %    " .vimrc修改之后自动加载(Linux)
+if g:iswindows
+    autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
+else
+    autocmd! bufwritepost .vimrc source %    " .vimrc修改之后自动加载(Linux)
+endif
 
 " 设置当文件被改动时自动载入
 set autoread
@@ -507,8 +509,9 @@ func SetTitle()
         call append(line("."),"# encoding: utf-8")
 	    call append(line(".")+1, "")
 
-"    elseif &filetype == 'mkd'
-"        call setline(1,"<head><meta charset=\"UTF-8\"></head>")
+    elseif &filetype == 'mkd'
+        call setline(1,"<head><meta charset=\"UTF-8\"></head>")
+
 	else 
 		call setline(1, "/*************************************************************************") 
 		call append(line("."), "	> File Name: ".expand("%")) 
@@ -539,6 +542,58 @@ func SetTitle()
 	"新建文件后，自动定位到文件末尾
 endfunc 
 autocmd BufNewFile * normal G
+
+" =============================================================================
+"                          << 以下为用户自定义配置 >>
+" =============================================================================
+
+" -----------------------------------------------------------------------------
+"  < Vundle 插件管理工具配置 >
+" -----------------------------------------------------------------------------
+" 用于更方便的管理vim插件，具体用法参考 :h vundle 帮助
+" Vundle工具安装方法为在终端输入如下命令
+" git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+" 如果想在 windows 安装就必需先安装 "git for window"，可查阅网上资料
+
+if g:islinux
+    set rtp+=~/.vim/bundle/Vundle.vim/
+    call vundle#rc()
+else
+    set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
+    call vundle#rc('$VIM/vimfiles/bundle/')
+endif
+
+" 使用Vundle来管理插件，这个必须要有。
+Bundle 'VundleVim/Vundle.vim'
+
+" 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
+"Bundle 'a.vim'
+"Bundle 'Align'
+"Bundle 'jiangmiao/auto-pairs'
+"Bundle 'bufexplorer.zip'
+"Bundle 'ccvext.vim'
+"Bundle 'cSyntaxAfter'
+"Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'mattn/emmet-vim'
+"Bundle 'Yggdroot/indentLine'
+"Bundle 'vim-javacompleteex'
+"Bundle 'Mark--Karkat'
+"Bundle 'Shougo/neocomplcache.vim'
+"Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdtree'
+"Bundle 'OmniCppComplete'
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'repeat.vim'
+"Bundle 'msanders/snipmate.vim'
+"Bundle 'wesleyche/SrcExpl'
+"Bundle 'std_c.zip'
+"Bundle 'tpope/vim-surround'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'majutsushi/tagbar'
+"Bundle 'taglist.vim'
+"Bundle 'TxtBrowser'
+"Bundle 'ZoomWin'
+Bundle 'vim-airline'
 
 " =============================================================================
 "                          << 以下为常用插件配置 >>
@@ -605,19 +660,21 @@ let g:airline_powerline_fonts = 1
 
 "开启tabline
 let g:airline#extensions#tabline#enabled = 1      "tabline中当前buffer两端的分隔字符
-"let g:airline#extensions#tabline#left_sep = ' '   "tabline中未激活buffer两端的分隔字符
-"let g:airline#extensions#tabline#left_alt_sep = '|'      "tabline中buffer显示编号
+let g:airline#extensions#tabline#left_sep = ' '   "tabline中未激活buffer两端的分隔字符
+let g:airline#extensions#tabline#left_alt_sep = '|'      "tabline中buffer显示编号
 let g:airline#extensions#tabline#buffer_nr_show = 1 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
 "unicode symbols
-    let g:airline_left_sep = '►'
+let g:airline_left_sep = '►'
 let g:airline_left_alt_sep = '>'
 let g:airline_right_sep = '◄'
 let g:airline_right_alt_sep = '<'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
+
 " 映射切换buffer的键位
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
