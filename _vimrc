@@ -378,7 +378,7 @@ set magic
 " 设置主题  
 set background=dark
 ""colorscheme molokai  
-colorscheme torte
+colorscheme solarized 
 set t_Co=256
 
 " 设置 gVim 窗口初始位置及大小
@@ -558,31 +558,17 @@ autocmd BufNewFile * normal G
 
 " 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
 "Bundle 'a.vim'
-"Bundle 'Align'
-"Bundle 'jiangmiao/auto-pairs'
-"Bundle 'bufexplorer.zip'
-"Bundle 'ccvext.vim'
 "Bundle 'cSyntaxAfter'
-"Bundle 'ctrlpvim/ctrlp.vim'
 "Bundle 'mattn/emmet-vim'
-"Bundle 'Yggdroot/indentLine'
 "Bundle 'vim-javacompleteex'
-"Bundle 'Mark--Karkat'
 "Bundle 'Shougo/neocomplcache.vim'
 "Bundle 'scrooloose/nerdcommenter'
 "Bundle 'scrooloose/nerdtree'
 "Bundle 'OmniCppComplete'
-"Bundle 'Lokaltog/vim-powerline'
-"Bundle 'repeat.vim'
 "Bundle 'msanders/snipmate.vim'
-"Bundle 'wesleyche/SrcExpl'
 "Bundle 'std_c.zip'
 "Bundle 'tpope/vim-surround'
 "Bundle 'scrooloose/syntastic'
-"Bundle 'majutsushi/tagbar'
-"Bundle 'taglist.vim'
-"Bundle 'TxtBrowser'
-"Bundle 'ZoomWin'
 "Bundle 'AutoComplPop'
 "Bundle 'vim-airline'
 
@@ -603,9 +589,14 @@ autocmd BufNewFile * normal G
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('$VIM/vimfiles/bundle')
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Loaded when html file is opened
-Plug 'othree/html5.vim', { 'for': 'html' }
+"Plug 'othree/html5.vim', { 'for': 'html' }
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'vim-scripts/phd'
+Plug 'Valloric/YouCompleteMe'
+"Plug 'lilydjwg/fcitx.vim'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " =============================================================================
@@ -616,12 +607,10 @@ call plug#end()
 " Tag list (ctags)
 " -----------------------------------------------------------------------------
 if (has("gui_running"))
-	let Tlist_Ctags_Cmd = 'ctags'
+	let Tlist_Ctags_Cmd = '$VIM\vim81'
 else
 	let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 endif
-
-let Tlist_Ctags_Cmd = 'C:\Program Files (x86)\Vim\vim73e\ctags'
 
 " 显示一个文件的tag 
 let Tlist_Show_One_File=1
