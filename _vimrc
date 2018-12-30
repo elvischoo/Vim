@@ -555,16 +555,16 @@ autocmd BufNewFile * normal G
 " git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 " 如果想在 windows 安装就必需先安装 "git for window"，可查阅网上资料
 
-if g:islinux
-    set rtp+=~/.vim/bundle/Vundle.vim/
-    call vundle#rc()
-else
-    set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
-    call vundle#rc('$VIM/vimfiles/bundle/')
-endif
+"if g:islinux
+"    set rtp+=~/.vim/bundle/Vundle.vim/
+"    call vundle#rc()
+"else
+"    set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
+"    call vundle#rc('$VIM/vimfiles/bundle/')
+"endif
 
 " 使用Vundle来管理插件，这个必须要有。
-Bundle 'VundleVim/Vundle.vim'
+"Bundle 'VundleVim/Vundle.vim'
 
 " 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
 "Bundle 'a.vim'
@@ -593,7 +593,30 @@ Bundle 'VundleVim/Vundle.vim'
 "Bundle 'taglist.vim'
 "Bundle 'TxtBrowser'
 "Bundle 'ZoomWin'
-Bundle 'vim-airline'
+"Bundle 'AutoComplPop'
+"Bundle 'vim-airline'
+
+" -----------------------------------------------------------------------------
+"  < Vim-Plug 插件管理工具配置 >
+" -----------------------------------------------------------------------------
+" 插件使用：(1)Begin the section with call plug#begin()
+"			(2)List the plugins with Plug commands
+"			(3)call plug#end() to update &runtimepath and initialize plugin system
+" 命令：(1)PlugStatus   用于检查插件的状态
+"		(2)PlugInstall  安装字体后必须设置
+"       (3)PlugUpdate	检查插件并更新
+"		(4)PlugClean	清除插件
+"		(5)PlugUpgrade	更新插件本身
+
+" Specify a directory for plugins
+" - For vim: $VIM/vimfiles/bundle
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('$VIM/vimfiles/bundle')
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Loaded when html file is opened
+Plug 'othree/html5.vim', { 'for': 'html' }
+call plug#end()
 
 " =============================================================================
 "                          << 以下为常用插件配置 >>
@@ -698,35 +721,7 @@ endif "has("autocmd")
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:nmap <silent> <F9> <ESC>:Tlist<RETURN>
-" shift tab pages
-"map <S-Left> :tabp<CR>
-"map <S-Right> :tabn<CR>
-"map! <C-Z> <Esc>zzi
-"map! <C-O> <C-Y>,
-"map <C-A> ggVG$"+y
-"map <Esc><Esc> :w<CR>
-"map <F12> gg=G
-"map <C-w> <C-w>w
-"imap <C-k> <C-y>,
-"imap <C-t> <C-q><TAB>
-"imap <C-j> <ESC>
-" 选中状态下 Ctrl+c 复制
-"map <C-v> "*pa
-"imap <C-v> <Esc>"*pa
-"imap <C-a> <Esc>^
-"imap <C-e> <Esc>$
-"vmap <C-c> "+y
-"set mouse=v
-"set clipboard=unnamed
-"去空行  
-"nnoremap <F2> :g/^\s*$/d<CR> 
-"比较文件  
-"nnoremap <C-F2> :vert diffsplit 
-"nnoremap <Leader>fu :CtrlPFunky<Cr>
-"nnoremap <C-n> :CtrlPFunky<Cr>
- 
-:autocmd BufRead,BufNewFile *.dot map <F5> :w<CR>:!dot -Tjpg -o %<.jpg % && eog %<.jpg  <CR><CR> && exec "redr!"
+
 "C，C++ 按F5编译运行
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
