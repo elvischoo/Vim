@@ -377,8 +377,8 @@ set magic
 
 " 设置主题  
 set background=dark
-colorscheme molokai  
-"colorscheme solarized
+""colorscheme molokai  
+colorscheme torte
 set t_Co=256
 
 " 设置 gVim 窗口初始位置及大小
@@ -436,17 +436,16 @@ set nowrap
 " 设置代码匹配,包括括号匹配情况  
 set showmatch 
 
-" 使pathogen生效(插件管理器,只需将插件放入bundle，将pathogen.vim放入autoload即可)  
-"execute pathogen#infect() 
-
 """"""""""""""""""""""""""""""
 " Other Settings
 """"""""""""""""""""""""""""""
+" 让配置变更立即生效
 if g:iswindows
     autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
 else
     autocmd! bufwritepost .vimrc source %    " .vimrc修改之后自动加载(Linux)
 endif
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 设置当文件被改动时自动载入
 set autoread
