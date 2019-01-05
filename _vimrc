@@ -377,8 +377,8 @@ set magic
 
 " 设置主题  
 set background=dark
-""colorscheme molokai  
-colorscheme solarized 
+colorscheme molokai  
+"colorscheme solarized 
 set t_Co=256
 
 " 设置 gVim 窗口初始位置及大小
