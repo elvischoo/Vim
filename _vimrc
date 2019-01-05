@@ -111,6 +111,9 @@ endif
 "                          << 以下为用户自定义配置 >>
 " =============================================================================
 
+"去掉有关vi一致性模式，避免以前版本的一些bug和局限
+set nocompatible
+
 " 启动的时候不显示那个援助索马里儿童的提示 
 set shortmess=atI
 
@@ -119,9 +122,6 @@ set report=0
 
 " 不让vim发出讨厌的滴滴声 
 set noerrorbells
-
-"去掉有关vi一致性模式，避免以前版本的一些bug和局限
-set nocompatible
 
 " 开启语法高亮  
 syntax enable  
@@ -593,10 +593,9 @@ call plug#begin('$VIM/vimfiles/bundle')
 " Loaded when html file is opened
 "Plug 'othree/html5.vim', { 'for': 'html' }
 "Plug 'scrooloose/nerdcommenter'
-"Plug 'vim-scripts/phd'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'lilydjwg/fcitx.vim'
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " =============================================================================
@@ -698,7 +697,7 @@ if has("autocmd")
 endif "has("autocmd")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"键盘命令
+" 键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "C，C++ 按F5编译运行
@@ -743,7 +742,7 @@ func! Rungdb()
 endfunc
 
 
-"代码格式优化化
+"代码格式优化化   需安装Artistic Style
 map <F6> :call FormartSrc()<CR><CR>
 
 "定义FormartSrc()
@@ -898,3 +897,5 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
 
 " let mapleader = ","
+
+
