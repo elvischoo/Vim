@@ -344,7 +344,7 @@ imap <c-h> <Left>
 imap <c-l> <Right>
 
 " 启用每行超过80列的字符提示（字体变蓝并加下划线），不启用就注释掉
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+"au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
 
 " -----------------------------------------------------------------------------
 "  < 界面配置 >
@@ -377,8 +377,8 @@ set magic
 
 " 设置主题  
 set background=dark
-""colorscheme molokai  
-colorscheme solarized 
+colorscheme molokai  
+"colorscheme solarized 
 set t_Co=256
 
 " 设置 gVim 窗口初始位置及大小
@@ -594,7 +594,7 @@ call plug#begin('$VIM/vimfiles/bundle')
 "Plug 'othree/html5.vim', { 'for': 'html' }
 "Plug 'scrooloose/nerdcommenter'
 "Plug 'vim-scripts/phd'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 "Plug 'lilydjwg/fcitx.vim'
 Plug 'vim-airline/vim-airline'
 call plug#end()
