@@ -492,7 +492,9 @@ unlet s:cpo_save
 " vim: ts=8
 
 "highlight Functions
-syn match cFuntions display "[a-zA-Z0-9_]\{-1,}\s\{-0,}(\{1}"ms=s,me=e-1
+"syn match cFuntions display "[a-zA-Z0-9_]\{-1,}\s\{-0,}(\{1}"ms=s,me=e-1
+syn match cFunctions "/<[a-zA-Z_][a-zA-Z_0-9]*/>[^()]*)("me=e-2
+syn match cFunctions "/<[a-zA-Z_][a-zA-Z_0-9]*/>/s*("me=e-1
 hi def link cFuntions Function
 
 "hightlight struct name, class name, enum name

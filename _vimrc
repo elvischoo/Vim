@@ -111,7 +111,7 @@ endif
 "                          << 以下为用户自定义配置 >>
 " =============================================================================
 
-"去掉有关vi一致性模式，避免以前版本的一些bug和局限
+" 去掉有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible
 
 " 启动的时候不显示那个援助索马里儿童的提示 
@@ -143,7 +143,7 @@ match OverLength '\%101v.*'
 highlight StatusLine guifg=SlateBlue guibg=Yellow 
 highlight StatusLineNC guifg=Gray guibg=White 
 
-"高亮光标所在行与列
+" 高亮光标所在行与列
 set cul		"set cursorline 
 set cuc		"set cursorcolumn
 
@@ -194,7 +194,14 @@ endif
 " set t_ti= t_te=
 
 " 设置在Vim中可以使用鼠标，防止终端无法拷贝  
-" 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位） 
+" 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
+" The mouse can be enabled for different modes:
+" 	n Normal mode
+" 	v Visual mode
+" 	i Insert mode
+" 	c Command-line mode
+" 	h all previous modes when editing a help file
+" 	a all previous modes 
 set mouse=a 
 set selection=exclusive 
 set selectmode=mouse,key 
@@ -281,7 +288,7 @@ set novisualbell
 "  < 编写文件时的配置 >
 " -----------------------------------------------------------------------------
 
-"启用折叠
+" 启用折叠
 set foldenable
 
 " 折叠方法
@@ -293,19 +300,20 @@ set foldenable
 " marker 标记折叠
 set foldmethod=manual
 
-"用空格键开关折叠
+" 用空格键开关折叠
 " 常规模式下用空格键来开关光标行所在折叠（注：zR 展开所有折叠，zM 关闭所有折叠）
-"设置代码折叠, 选中一块代码，然后输入zf即可折叠这一段代码
+" 设置代码折叠, 选中一块代码，然后输入zf即可折叠这一段代码
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
 
-"设定自动保存折叠
+" 设定自动保存折叠
 "au BufWinLeave *.* silent mkview
 "au BufWinEnter *.* silent! loadview
 
 " 设置C/C++方式自动对齐  
 set autoindent  
 set cindent  
-set smartindent  
+set smartindent
+set cinoptions=g0,:0,N-s,(0  	" 设置C/C++语言的具体缩进方式
 
 " 设置tab宽度  
 set tabstop=4  
@@ -346,6 +354,9 @@ imap <c-l> <Right>
 " 启用每行超过80列的字符提示（字体变蓝并加下划线），不启用就注释掉
 "au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
 
+" 打开文件自动定位到最后编辑的位置
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
 " -----------------------------------------------------------------------------
 "  < 界面配置 >
 " -----------------------------------------------------------------------------
@@ -369,10 +380,10 @@ if g:isGUI
     \endif<CR>
 endif
 
-"不要图形按钮
+" 不要图形按钮
 set go=
 
-"设置魔术
+" 设置魔术
 set magic
 
 " 设置主题  
@@ -389,7 +400,7 @@ if g:isGUI
 endif
 
 " 设置字体
-set gfn=Consolas:h12
+set gfn=Consolas:h12:cANSI
 
 " 添加水平滚动条  
 "set guioptions+=b  
@@ -402,11 +413,14 @@ set guioptions-=T
 set go-=r
 set go-=L
 
+" 设置光标为竖线
+set guicursor=n-v-c:ver5    
+
 " 设置水平行数和竖直列数  
 set lines=35  
 set columns=99  
 
-" 我的状态行显示的内容（包括文件类型和解码） 
+" 状态行显示的内容（包括文件类型和解码） 
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 
 " 总是显示状态行 
@@ -450,17 +464,23 @@ endif
 " 设置当文件被改动时自动载入
 set autoread
 
-"自动保存
+" 在切换buffer时自动保存当前文件
 set autowrite
 
 " quickfix模式
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 
-"代码补全 
-set completeopt=preview,menu 
+" 代码补全 
+set completeopt=preview,menu
+set wildmenu 		" vim自身命名行模式智能补全
+set completeopt-=preview " 补全时不显示窗口，只显示补全列表 
+
+" 高亮显示普通txt文件（需要txt.vim脚本）
+au BufRead,BufNewFile *.txt setfiletype txt
+au BufRead,BufNewFile *.txt setlocal ft=txt
 
 """"""""""""""""""""""""""""""
-"括号自动补全
+" 括号自动补全
 """"""""""""""""""""""""""""""
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
@@ -481,9 +501,9 @@ endfunction
 " -----------------------------------------------------------------------------
 "  < 新文件自动插入文件头 >
 " -----------------------------------------------------------------------------
-"新建.c,.h,.sh,.java文件，自动插入文件头 
+" 新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
-""定义函数SetTitle，自动插入文件头 
+" 定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 	"如果文件类型为.sh文件 
 	if &filetype == 'sh' 
@@ -493,15 +513,12 @@ func SetTitle()
         call setline(1,"#!/usr/bin/env python")
         call append(line("."),"# coding=utf-8")
 	    call append(line(".")+1, "") 
-
     elseif &filetype == 'ruby'
         call setline(1,"#!/usr/bin/env ruby")
         call append(line("."),"# encoding: utf-8")
 	    call append(line(".")+1, "")
-
     elseif &filetype == 'mkd'
         call setline(1,"<head><meta charset=\"UTF-8\"></head>")
-
 	else 
 		call setline(1, "/*************************************************************************") 
 		call append(line("."), "	> File Name: ".expand("%")) 
@@ -511,27 +528,134 @@ func SetTitle()
 		call append(line(".")+4, " ************************************************************************/") 
 		call append(line(".")+5, "")
 	endif
+ 
 	if expand("%:e") == 'cpp'
 		call append(line(".")+6, "#include<iostream>")
 		call append(line(".")+7, "using namespace std;")
 		call append(line(".")+8, "")
 	endif
+
 	if &filetype == 'c'
 		call append(line(".")+6, "#include<stdio.h>")
 		call append(line(".")+7, "")
 	endif
+
 	if expand("%:e") == 'h'
 		call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
 		call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
 		call append(line(".")+8, "#endif")
 	endif
+
 	if &filetype == 'java'
 		call append(line(".")+6,"public class ".expand("%:r"))
 		call append(line(".")+7,"")
 	endif
-	"新建文件后，自动定位到文件末尾
 endfunc 
+" 新建文件后，自动定位到文件末尾
 autocmd BufNewFile * normal G
+
+" -----------------------------------------------------------------------------
+" Autocommands 
+" -----------------------------------------------------------------------------
+" 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
+if has("autocmd") 
+    autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
+    autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
+    autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
+    autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
+    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
+    autocmd BufReadPost * 
+    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
+    \ exe " normal g`\"" | 
+    \ endif 
+endif "has("autocmd")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 键盘命令
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 去空行  
+nnoremap <F2> :g/^\s*$/d<CR> 
+
+" 选中状态下 Ctrl+c 复制
+vmap <C-c> "+y
+
+" 映射全选+复制 ctrl+a
+map <C-A> ggVGY
+map! <C-A> <Esc>ggVGY
+map <F12> gg=G
+
+" 编辑vimrc文件
+nnoremap <leader>e :edit $MYVIMRC<cr>
+
+" C，C++ 按F5编译运行
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
+		exec "!g++ % -std=c++11 -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'java' 
+		exec "!javac %" 
+		exec "!time java %<"
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		exec "!time python2.7 %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+"        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+	endif
+endfunc
+
+" C,C++的调试
+map <F8> :call Rungdb()<CR>
+func! Rungdb()
+	exec "w"
+	if &filetype == 'c'
+		exec "!g++ % -o %<"
+		exec "!gdb ./%<"
+	elseif &filetype == 'cpp'	
+		exec "!g++ % -std=c++11 -g -o %<"
+		exec "!gdb ./%<"
+	endif
+endfunc
+
+" 代码格式优化化   需安装Artistic Style
+map <F6> :call FormartSrc()<CR><CR>
+
+" 定义FormartSrc()
+func FormartSrc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!astyle --style=ansi -a --suffix=none %"
+    elseif &filetype == 'cpp' || &filetype == 'hpp'
+        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
+    elseif &filetype == 'perl'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'py'||&filetype == 'python'
+        exec "r !autopep8 -i --aggressive %"
+    elseif &filetype == 'java'
+        exec "!astyle --style=java --suffix=none %"
+    elseif &filetype == 'jsp'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'xml'
+        exec "!astyle --style=gnu --suffix=none %"
+    else
+        exec "normal gg=G"
+        return
+    endif
+    exec "e! %"
+endfunc
+" 结束定义FormartSrc
 
 " =============================================================================
 "                          << 以下为用户自定义配置 >>
@@ -588,6 +712,7 @@ autocmd BufNewFile * normal G
 " - For vim: $VIM/vimfiles/bundle
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('$VIM/vimfiles/bundle')
+Plug 'ns9tks/vim-autocomplpop'
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Loaded when html file is opened
@@ -595,7 +720,11 @@ call plug#begin('$VIM/vimfiles/bundle')
 "Plug 'scrooloose/nerdcommenter'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'lilydjwg/fcitx.vim'
-"Plug 'vim-airline/vim-airline'
+"Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'gko/vim-coloresque'
 call plug#end()
 
 " =============================================================================
@@ -656,7 +785,8 @@ nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tag
 " -----------------------------------------------------------------------------
 " airline插件的设定
 " -----------------------------------------------------------------------------
-"安装字体后必须设置
+"let g:airline_theme="onedark"
+" 安装字体后必须设置
 let g:airline_powerline_fonts = 1
 
 "开启tabline
@@ -679,96 +809,6 @@ let g:airline_symbols.branch = '⎇'
 " 映射切换buffer的键位
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
-
-" -----------------------------------------------------------------------------
-" Autocommands 
-" -----------------------------------------------------------------------------
-" 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
-if has("autocmd") 
-    autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
-    autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
-    autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
-    autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
-    autocmd BufReadPost * 
-    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
-    \ exe " normal g`\"" | 
-    \ endif 
-endif "has("autocmd")
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 键盘命令
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"C，C++ 按F5编译运行
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'cpp'
-		exec "!g++ % -std=c++11 -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'java' 
-		exec "!javac %" 
-		exec "!time java %<"
-	elseif &filetype == 'sh'
-		:!time bash %
-	elseif &filetype == 'python'
-		exec "!time python2.7 %"
-    elseif &filetype == 'html'
-        exec "!firefox % &"
-    elseif &filetype == 'go'
-"        exec "!go build %<"
-        exec "!time go run %"
-    elseif &filetype == 'mkd'
-        exec "!~/.vim/markdown.pl % > %.html &"
-        exec "!firefox %.html &"
-	endif
-endfunc
-
-"C,C++的调试
-map <F8> :call Rungdb()<CR>
-func! Rungdb()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!gdb ./%<"
-	elseif &filetype == 'cpp'	
-		exec "!g++ % -std=c++11 -g -o %<"
-		exec "!gdb ./%<"
-	endif
-endfunc
-
-
-"代码格式优化化   需安装Artistic Style
-map <F6> :call FormartSrc()<CR><CR>
-
-"定义FormartSrc()
-func FormartSrc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!astyle --style=ansi -a --suffix=none %"
-    elseif &filetype == 'cpp' || &filetype == 'hpp'
-        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
-    elseif &filetype == 'perl'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'py'||&filetype == 'python'
-        exec "r !autopep8 -i --aggressive %"
-    elseif &filetype == 'java'
-        exec "!astyle --style=java --suffix=none %"
-    elseif &filetype == 'jsp'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'xml'
-        exec "!astyle --style=gnu --suffix=none %"
-    else
-        exec "normal gg=G"
-        return
-    endif
-    exec "e! %"
-endfunc
-"结束定义FormartSrc
 
 " -----------------------------------------------------------------------------
 " Doxygen自动添加注释
@@ -797,8 +837,16 @@ let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:neocomplcache_enable_at_startup = 1
 let NERDTreeHighlightCursorline=1
-nnoremap <leader>n :NERDTreeToggle<CR>
-"只剩 NERDTree时自动关闭
+nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1         
+let g:NERDTreeHighlightFoldersFullName = 1 
+let g:NERDTreeDirArrowExpandable='▷'
+let g:NERDTreeDirArrowCollapsible='▼'
+" 只剩 NERDTree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif 
 
 " -----------------------------------------------------------------------------
@@ -815,25 +863,25 @@ endif
 " -----------------------------------------------------------------------------
 " syntastic
 " -----------------------------------------------------------------------------
-"设置error和warning的标志
+" 设置error和warning的标志
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol='?'
 let g:syntastic_warning_symbol='?'
-"总是打开Location List（相当于QuickFix）窗口，如果你发现syntastic因为与其他插件冲突而经常崩溃，将下面选项置0
+" 总是打开Location List（相当于QuickFix）窗口，如果你发现syntastic因为与其他插件冲突而经常崩溃，将下面选项置0
 let g:syntastic_always_populate_loc_list = 1
-"自动打开Locaton List，默认值为2，表示发现错误时不自动打开，当修正以后没有再发现错误时自动关闭，置1表示自动打开自动关闭，0表示关闭自动打开和自动关闭，3表示自动打开，但不自动关闭
+" 自动打开Locaton List，默认值为2，表示发现错误时不自动打开，当修正以后没有再发现错误时自动关闭，置1表示自动打开自动关闭，0表示关闭自动打开和自动关闭，3表示自动打开，但不自动关闭
 let g:syntastic_auto_loc_list = 1
-"修改Locaton List窗口高度
+" 修改Locaton List窗口高度
 let g:syntastic_loc_list_height = 5
-"打开文件时自动进行检查
+" 打开文件时自动进行检查
 let g:syntastic_check_on_open = 1
-"自动跳转到发现的第一个错误或警告处
+" 自动跳转到发现的第一个错误或警告处
 let g:syntastic_auto_jump = 1
-"进行实时检查，如果觉得卡顿，将下面的选项置为1
+" 进行实时检查，如果觉得卡顿，将下面的选项置为1
 let g:syntastic_check_on_wq = 0
-"高亮错误
+" 高亮错误
 let g:syntastic_enable_highlighting=1
-"让syntastic支持C++11
+" 让syntastic支持C++11
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
