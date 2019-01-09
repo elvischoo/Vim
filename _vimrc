@@ -712,7 +712,6 @@ endfunc
 " - For vim: $VIM/vimfiles/bundle
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('$VIM/vimfiles/bundle')
-Plug 'ns9tks/vim-autocomplpop'
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Loaded when html file is opened
