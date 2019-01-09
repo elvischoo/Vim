@@ -1,9 +1,9 @@
-"========================================  
+" =============================================================================  
 " File Name: .vimrc  
 " Author: Elvis 
 " Description: Vim配置文档  
 " Date: 2018.9.23  
-"======================================== 
+" ============================================================================= 
 
 " =============================================================================
 "        << 判断操作系统是 Windows 还是 Linux 和判断是终端还是 Gvim >>
@@ -38,7 +38,7 @@ endif
 " -----------------------------------------------------------------------------
 if (g:iswindows && g:isGUI)
     source $VIMRUNTIME/vimrc_example.vim
-    source $VIMRUNTIME/mswin.vim
+    "source $VIMRUNTIME/mswin.vim
     behave mswin
     set diffexpr=MyDiff()
 
@@ -417,8 +417,8 @@ set go-=L
 set guicursor=n-v-c:ver5    
 
 " 设置水平行数和竖直列数  
-set lines=35  
-set columns=99  
+"set lines=35  
+"set columns=99  
 
 " 状态行显示的内容（包括文件类型和解码） 
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
