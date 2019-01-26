@@ -1,9 +1,9 @@
-" =============================================================================  
+"========================================  
 " File Name: .vimrc  
 " Author: Elvis 
 " Description: Vim配置文档  
 " Date: 2018.9.23  
-" ============================================================================= 
+"======================================== 
 
 " =============================================================================
 "        << 判断操作系统是 Windows 还是 Linux 和判断是终端还是 Gvim >>
@@ -37,12 +37,12 @@ endif
 "  < Windows Gvim 默认配置> 做了一点修改
 " -----------------------------------------------------------------------------
 if (g:iswindows && g:isGUI)
-    source $VIMRUNTIME/vimrc_example.vim
+    "source $VIMRUNTIME/vimrc_example.vim
     "source $VIMRUNTIME/mswin.vim
-    behave mswin
+    "behave mswin
     set diffexpr=MyDiff()
 
-    function MyDiff()
+    function! MyDiff()
         let opt = '-a --binary '
         if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
         if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
@@ -202,9 +202,10 @@ endif
 " 	c Command-line mode
 " 	h all previous modes when editing a help file
 " 	a all previous modes 
-set mouse=a 
-set selection=exclusive 
-set selectmode=mouse,key 
+"set mouse=a 
+set mouse=
+"set selection=exclusive 
+"set selectmode=mouse,key 
 
 " 与windows共享剪贴板 
 set clipboard+=unnamed
@@ -417,8 +418,8 @@ set go-=L
 set guicursor=n-v-c:ver5    
 
 " 设置水平行数和竖直列数  
-"set lines=35  
-"set columns=99  
+set lines=35  
+set columns=99  
 
 " 状态行显示的内容（包括文件类型和解码） 
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
@@ -473,7 +474,7 @@ autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 " 代码补全 
 set completeopt=preview,menu
 set wildmenu 		" vim自身命名行模式智能补全
-set completeopt-=preview " 补全时不显示窗口，只显示补全列表 
+"set completeopt-=preview " 补全时不显示窗口，只显示补全列表 
 
 " 高亮显示普通txt文件（需要txt.vim脚本）
 au BufRead,BufNewFile *.txt setfiletype txt
@@ -504,7 +505,7 @@ endfunction
 " 新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
 " 定义函数SetTitle，自动插入文件头 
-func SetTitle() 
+func! SetTitle() 
 	"如果文件类型为.sh文件 
 	if &filetype == 'sh' 
 		call setline(1,"\#!/bin/bash") 
@@ -633,7 +634,7 @@ endfunc
 map <F6> :call FormartSrc()<CR><CR>
 
 " 定义FormartSrc()
-func FormartSrc()
+func! FormartSrc()
     exec "w"
     if &filetype == 'c'
         exec "!astyle --style=ansi -a --suffix=none %"
@@ -711,20 +712,23 @@ endfunc
 " Specify a directory for plugins
 " - For vim: $VIM/vimfiles/bundle
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('$VIM/vimfiles/bundle')
-" On-demand loading
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Loaded when html file is opened
-"Plug 'othree/html5.vim', { 'for': 'html' }
-"Plug 'scrooloose/nerdcommenter'
-"Plug 'Valloric/YouCompleteMe'
-"Plug 'lilydjwg/fcitx.vim'
-"Plug 'tpope/vim-commentary'
-Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'gko/vim-coloresque'
-call plug#end()
+if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
+    call plug#begin('$VIM/vimfiles/bundle')
+    Plug 'othree/vim-autocomplpop'
+    " On-demand loading
+    "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    " Loaded when html file is opened
+    "Plug 'othree/html5.vim', { 'for': 'html' }
+    "Plug 'scrooloose/nerdcommenter'
+    "Plug 'Valloric/YouCompleteMe'
+    "Plug 'lilydjwg/fcitx.vim'
+    "Plug 'tpope/vim-commentary'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    "Plug 'ryanoasis/vim-devicons'
+    "Plug 'gko/vim-coloresque'
+    call plug#end()
+endif
 
 " =============================================================================
 "                          << 以下为常用插件配置 >>
@@ -851,7 +855,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 " -----------------------------------------------------------------------------
 " closetag settings 自动补全html/xml标签
 " -----------------------------------------------------------------------------
-:let g:closetag_html_style=1 
+let g:closetag_html_style=1 
 if filereadable(expand("$VIMRUNTIME/plugin/closetag.vim"))
     au FileType html,xml source $VIMRUNTIME/plugin/closetag.vim
 endif
@@ -888,25 +892,25 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " html
 " -----------------------------------------------------------------------------
 "xhtml compatible tags to be defined
-:let g:do_xhtml_mappings = 'yes'
-:let g:no_html_tab_mapping = 'yes'
-:let g:no_html_toolbar = 'yes'
-:let g:html_tag_case_autodetect = 'yes'
+let g:do_xhtml_mappings = 'yes'
+let g:no_html_tab_mapping = 'yes'
+let g:no_html_toolbar = 'yes'
+let g:html_tag_case_autodetect = 'yes'
 "html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
-:let g:html_tag_case = 'lowercase'
+let g:html_tag_case = 'lowercase'
 ":let g:html_map_leader = g:maplocalleader
-:let g:html_map_entity_leader = '\'
-:let g:no_html_map_override = 'yes'
-:let g:no_html_maps = '^\(;ah\|;im\|;H\d\)$'
-:let g:no_html_menu = 'yes'
-:let g:force_html_menu = 'yes'
+let g:html_map_entity_leader = '\'
+let g:no_html_map_override = 'yes'
+let g:no_html_maps = '^\(;ah\|;im\|;H\d\)$'
+let g:no_html_menu = 'yes'
+let g:force_html_menu = 'yes'
 ":let g:html_authorname  = 'John Smith'
 ":let g:html_authoremail = 'jsmith@example.com'
-:let g:html_bgcolor     = '#FFFFFF'
-:let g:html_textcolor   = '#000000'
-:let g:html_linkcolor   = '#0000EE'
-:let g:html_alinkcolor  = '#FF0000'
-:let g:html_vlinkcolor  = '#990066'
+let g:html_bgcolor     = '#FFFFFF'
+let g:html_textcolor   = '#000000'
+let g:html_linkcolor   = '#0000EE'
+let g:html_alinkcolor  = '#FF0000'
+let g:html_vlinkcolor  = '#990066'
 
 " =============================================================================
 "                          << 以下为常用自动命令配置 >>
