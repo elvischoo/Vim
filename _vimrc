@@ -483,14 +483,14 @@ au BufRead,BufNewFile *.txt setlocal ft=txt
 """"""""""""""""""""""""""""""
 " 括号自动补全
 """"""""""""""""""""""""""""""
-:inoremap ( ()<ESC>i
-:inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<ESC>O
-:inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<ESC>i
-:inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
+inoremap ( ()<ESC>i
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap { {<CR>}<ESC>O
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap [ []<ESC>i
+inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
 function! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
@@ -506,7 +506,7 @@ endfunction
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
 " 定义函数SetTitle，自动插入文件头 
 func! SetTitle() 
-	"如果文件类型为.sh文件 
+	" 如果文件类型为.sh文件 
 	if &filetype == 'sh' 
 		call setline(1,"\#!/bin/bash") 
 		call append(line("."), "") 
@@ -792,11 +792,14 @@ nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tag
 " 安装字体后必须设置
 let g:airline_powerline_fonts = 1
 
-"开启tabline
-let g:airline#extensions#tabline#enabled = 1      "tabline中当前buffer两端的分隔字符
-let g:airline#extensions#tabline#left_sep = ' '   "tabline中未激活buffer两端的分隔字符
-let g:airline#extensions#tabline#left_alt_sep = '|'      "tabline中buffer显示编号
-let g:airline#extensions#tabline#buffer_nr_show = 1 
+" 开启tabline
+let g:airline#extensions#tabline#enabled = 1
+" tabline中当前buffer两端的分隔字符
+let g:airline#extensions#tabline#left_sep = ' '
+" tabline中未激活buffer两端的分隔字符
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" tabline中buffer显示编号
+let g:airline#extensions#tabline#buffer_nr_show = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -891,21 +894,21 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " -----------------------------------------------------------------------------
 " html
 " -----------------------------------------------------------------------------
-"xhtml compatible tags to be defined
+" xhtml compatible tags to be defined
 let g:do_xhtml_mappings = 'yes'
 let g:no_html_tab_mapping = 'yes'
 let g:no_html_toolbar = 'yes'
 let g:html_tag_case_autodetect = 'yes'
-"html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
+" html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
 let g:html_tag_case = 'lowercase'
-":let g:html_map_leader = g:maplocalleader
+"let g:html_map_leader = g:maplocalleader
 let g:html_map_entity_leader = '\'
 let g:no_html_map_override = 'yes'
 let g:no_html_maps = '^\(;ah\|;im\|;H\d\)$'
 let g:no_html_menu = 'yes'
 let g:force_html_menu = 'yes'
-":let g:html_authorname  = 'John Smith'
-":let g:html_authoremail = 'jsmith@example.com'
+"let g:html_authorname  = 'John Smith'
+"let g:html_authoremail = 'jsmith@example.com'
 let g:html_bgcolor     = '#FFFFFF'
 let g:html_textcolor   = '#000000'
 let g:html_linkcolor   = '#0000EE'
