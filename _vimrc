@@ -1,9 +1,9 @@
-"========================================  
-" File Name: .vimrc  
-" Author: Elvis 
-" Description: Vim配置文档  
-" Date: 2018.9.23  
-"======================================== 
+" =============================================================================
+" File Name: .vimrc
+" Author: Elvis
+" Description: Vim配置文档
+" Date: 2018.9.23
+" =============================================================================
 
 " =============================================================================
 "        << 判断操作系统是 Windows 还是 Linux 和判断是终端还是 Gvim >>
@@ -114,50 +114,50 @@ endif
 " 去掉有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible
 
-" 启动的时候不显示那个援助索马里儿童的提示 
+" 启动的时候不显示那个援助索马里儿童的提示
 set shortmess=atI
 
-" 通过使用: commands命令，告诉我们文件的哪一行被改变过 
-set report=0 
+" 通过使用: commands命令，告诉我们文件的哪一行被改变过
+set report=0
 
-" 不让vim发出讨厌的滴滴声 
+" 不让vim发出讨厌的滴滴声
 set noerrorbells
 
-" 开启语法高亮  
-syntax enable  
+" 开启语法高亮
+syntax enable
 
 " 开启语法高亮
-syntax on  
+syntax on
 
-" 保存全局变量 
+" 保存全局变量
 set viminfo+=!
 
-" 带有如下符号的单词不要被换行分割 
+" 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 
-" 高亮字符，让其不受100列限制 
-highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white 
-match OverLength '\%101v.*' 
+" 高亮字符，让其不受100列限制
+highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
+match OverLength '\%101v.*'
 
-" 状态行颜色 
-highlight StatusLine guifg=SlateBlue guibg=Yellow 
-highlight StatusLineNC guifg=Gray guibg=White 
+" 状态行颜色
+highlight StatusLine guifg=SlateBlue guibg=Yellow
+highlight StatusLineNC guifg=Gray guibg=White
 
 " 高亮光标所在行与列
-set cul		"set cursorline 
-set cuc		"set cursorcolumn
+set cul     "set cursorline
+set cuc     "set cursorcolumn
 
-" 设置历史记录条数  
-set history=2000  
+" 设置历史记录条数
+set history=2000
 
-" 检测文件类型  
-filetype on  
+" 检测文件类型
+filetype on
 
-" 针对不同的文件，采用不同的缩进方式  
-filetype indent on  
+" 针对不同的文件，采用不同的缩进方式
+filetype indent on
 
-" 载入文件类型插件 
-filetype plugin on  
+" 载入文件类型插件
+filetype plugin on
 
 " 启动自动补全
 filetype plugin indent on
@@ -168,15 +168,15 @@ set completeopt=longest,menu
 " 文件修改之后自动读入
 set autoread
 
-" 设置取消备份，禁止临时文件生成  
-set nobackup  
+" 设置取消备份，禁止临时文件生成
+set nobackup
 set noswapfile
 
-" 不要生成swap文件，当buffer被丢弃的时候隐藏它 
-setlocal noswapfile 
-set bufhidden=hide 
+" 不要生成swap文件，当buffer被丢弃的时候隐藏它
+setlocal noswapfile
+set bufhidden=hide
 
-" 字符间插入的像素行数目 
+" 字符间插入的像素行数目
 set linespace=0
 
 " create undo file
@@ -193,34 +193,34 @@ endif
 " 好处:误删什么，如果以前屏幕打开可以用来找回
 " set t_ti= t_te=
 
-" 设置在Vim中可以使用鼠标，防止终端无法拷贝  
+" 设置在Vim中可以使用鼠标，防止终端无法拷贝
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
 " The mouse can be enabled for different modes:
-" 	n Normal mode
-" 	v Visual mode
-" 	i Insert mode
-" 	c Command-line mode
-" 	h all previous modes when editing a help file
-" 	a all previous modes 
-"set mouse=a 
+"   n Normal mode
+"   v Visual mode
+"   i Insert mode
+"   c Command-line mode
+"   h all previous modes when editing a help file
+"   a all previous modes
+"set mouse=a
 set mouse=
-"set selection=exclusive 
-"set selectmode=mouse,key 
+"set selection=exclusive
+"set selectmode=mouse,key
 
-" 与windows共享剪贴板 
+" 与windows共享剪贴板
 set clipboard+=unnamed
 
-" 在状态行上显示光标所在位置的行号和列号 
-set ruler 
-set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%) 
+" 在状态行上显示光标所在位置的行号和列号
+set ruler
+set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
 
-" 命令行（在状态行下）的高度，默认为1，这里是2 
-set cmdheight=2 
+" 命令行（在状态行下）的高度，默认为1，这里是2
+set cmdheight=2
 
-" 使回格键（backspace）正常处理indent, eol, start等 
-set backspace=2 
+" 使回格键（backspace）正常处理indent, eol, start等
+set backspace=2
 
-" 允许backspace和光标键跨越行边界 
+" 允许backspace和光标键跨越行边界
 set whichwrap+=<,>,h,l
 
 " 在被分割的窗口间显示空白，便于阅读
@@ -231,11 +231,11 @@ set fillchars=vert:\ ,stl:\ ,stlnc:\
 " -----------------------------------------------------------------------------
 " 注：使用utf-8格式后，软件与程序源码、文件路径不能有中文，否则报错
 
-" 设置编码方式 
+" 设置编码方式
 set encoding=utf-8                                    "设置gvim内部编码，默认不更改
 set fileencoding=utf-8                                "设置当前文件编码，可以更改，如：gbk（同cp936）
 
-" 设置打开文件的编码格式 
+" 设置打开文件的编码格式
 set fileencodings=ucs-bom,utf-8,gbk,cp936,latin-1     "设置支持打开的文件的编码
 
 " 文件格式，默认 ffs=dos,unix
@@ -244,7 +244,7 @@ set fileformats=unix,dos,mac                          "给出文件的<EOL>格�
 
 if (g:iswindows && g:isGUI)
     "解决菜单乱码
-	set langmenu=zh_CN.utf-8
+    set langmenu=zh_CN.utf-8
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
 
@@ -252,40 +252,40 @@ if (g:iswindows && g:isGUI)
     language messages zh_CN.utf-8
 endif
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 "  < 搜索和匹配 >
 " -----------------------------------------------------------------------------
-" 高亮显示匹配的括号 
-set showmatch 
+" 高亮显示匹配的括号
+set showmatch
 
-" 匹配括号高亮的时间（单位是十分之一秒） 
-set matchtime=5 
+" 匹配括号高亮的时间（单位是十分之一秒）
+set matchtime=5
 
-" 在搜索的时候忽略大小写 
-set ignorecase 
+" 在搜索的时候忽略大小写
+set ignorecase
 
-" 不要高亮被搜索的句子（phrases） 
-set nohlsearch 
+" 不要高亮被搜索的句子（phrases）
+set nohlsearch
 
 " 在搜索时，输入的词句的逐字符高亮，如要查找book单词，当输入到/b时，会自动找到
 " 第一个b开头的单词，当输入到/bo时，会自动找到第一个bo开头的单词，依次类推，
 " 进行查找时，使用此设置会快速找到答案，当你找要匹配的单词时，别忘记回车
 set incsearch
 
-" 设置搜索时忽略大小写  
-set ignorecase  
+" 设置搜索时忽略大小写
+set ignorecase
 
-" 当搜索的时候尝试smart  
-set smartcase  
+" 当搜索的时候尝试smart
+set smartcase
 
-" 输入:set list命令是应该显示些啥？ 
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ 
+" 输入:set list命令是应该显示些啥？
+set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$
 
-" 光标移动到buffer的顶部和底部时保持3行距离 
-set scrolloff=3 
+" 光标移动到buffer的顶部和底部时保持3行距离
+set scrolloff=3
 
-" 不要闪烁 
-set novisualbell 
+" 不要闪烁
+set novisualbell
 
 " 在搜索时如到达文件尾则绕回文件头继续搜索
 set ws
@@ -316,28 +316,28 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' :'zo')<CR>
 "au BufWinLeave *.* silent mkview
 "au BufWinEnter *.* silent! loadview
 
-" 设置C/C++方式自动对齐  
-set autoindent  
-set cindent  
+" 设置C/C++方式自动对齐
+set autoindent
+set cindent
 set smartindent
-set cinoptions=g0,:0,N-s,(0  	" 设置C/C++语言的具体缩进方式
+set cinoptions=g0,:0,N-s,(0    " 设置C/C++语言的具体缩进方式
 
-" 设置tab宽度  
-set tabstop=4  
+" 设置tab宽度
+set tabstop=4
 
-" 设置自动对齐空格数  
-set shiftwidth=4  
+" 设置自动对齐空格数
+set shiftwidth=4
 
 " 按退格键时可以一次删除4个空格
 set softtabstop=4
 
-" 编辑的时候将所有的tab设置为空格(expandtab)  
-set et  
+" 编辑的时候将所有的tab设置为空格(expandtab)
+set et
 
-" 使用Backspace直接删除tab  
-set smarttab  
+" 使用Backspace直接删除tab
+set smarttab
 
-" 不在单词中间折行  
+" 不在单词中间折行
 set lbr
 
 " 常规模式下输入 cS 清除行尾空格
@@ -393,10 +393,10 @@ set go=
 " 设置魔术
 set magic
 
-" 设置主题  
+" 设置主题
 set background=dark
-colorscheme molokai  
-"colorscheme solarized 
+colorscheme molokai
+"colorscheme solarized
 set t_Co=256
 
 " 设置 gVim 窗口初始位置及大小
@@ -410,29 +410,29 @@ endif
 "set gfn=Consolas:h12:cANSI
 set gfn=Powerline_Consolas:h12:cANSI
 
-" 添加水平滚动条  
-"set guioptions+=b  
+" 添加水平滚动条
+"set guioptions+=b
 
-" 取消菜单栏和导航栏  
-set guioptions-=m  
-set guioptions-=T  
+" 取消菜单栏和导航栏
+set guioptions-=m
+set guioptions-=T
 
 " 去除左右两边滚动条
 set go-=r
 set go-=L
 
 " 设置光标为竖线
-set guicursor=n-v-c:ver5    
+set guicursor=n-v-c:ver5
 
-" 设置水平行数和竖直列数  
-set lines=35  
-set columns=99  
+" 设置水平行数和竖直列数
+set lines=35
+set columns=99
 
-" 状态行显示的内容（包括文件类型和解码） 
+" 状态行显示的内容（包括文件类型和解码）
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 
-" 总是显示状态行 
-set laststatus=2 
+" 总是显示状态行
+set laststatus=2
 
 " 显示当前行号和列号
 set ruler
@@ -449,14 +449,14 @@ set showmode
 " 命令行（在状态行下）的高度，默认为1，这里是2
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 
-" 显示行号  
+" 显示行号
 set number
 
 " 不自动换行显示
-set nowrap  
+set nowrap
 
-" 设置代码匹配,包括括号匹配情况  
-set showmatch 
+" 设置代码匹配,包括括号匹配情况
+set showmatch
 
 " 当vim进行编辑时，如果命令错误，会发出一个响声，该设置去掉响声
 set vb t_vb=
@@ -481,10 +481,10 @@ set autowrite
 " quickfix模式
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 
-" 代码补全 
+" 代码补全
 set completeopt=preview,menu
-set wildmenu 		" vim自身命名行模式智能补全
-"set completeopt-=preview " 补全时不显示窗口，只显示补全列表 
+set wildmenu         " vim自身命名行模式智能补全
+"set completeopt-=preview " 补全时不显示窗口，只显示补全列表
 
 " 高亮显示普通txt文件（需要txt.vim脚本）
 au BufRead,BufNewFile *.txt setfiletype txt
@@ -512,81 +512,81 @@ endfunction
 " -----------------------------------------------------------------------------
 "  < 新文件自动插入文件头 >
 " -----------------------------------------------------------------------------
-" 新建.c,.h,.sh,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()" 
-" 定义函数SetTitle，自动插入文件头 
-func! SetTitle() 
-	" 如果文件类型为.sh文件 
-	if &filetype == 'sh' 
-		call setline(1,"\#!/bin/bash") 
-		call append(line("."), "") 
+" 新建.c,.h,.sh,.java文件，自动插入文件头
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()"
+" 定义函数SetTitle，自动插入文件头
+func! SetTitle()
+    " 如果文件类型为.sh文件
+    if &filetype == 'sh'
+        call setline(1,"\#!/bin/bash")
+        call append(line("."), "")
     elseif &filetype == 'python'
         call setline(1,"#!/usr/bin/env python")
         call append(line("."),"# coding=utf-8")
-	    call append(line(".")+1, "") 
+        call append(line(".")+1, "")
     elseif &filetype == 'ruby'
         call setline(1,"#!/usr/bin/env ruby")
         call append(line("."),"# encoding: utf-8")
-	    call append(line(".")+1, "")
+        call append(line(".")+1, "")
     elseif &filetype == 'mkd'
         call setline(1,"<head><meta charset=\"UTF-8\"></head>")
-	else 
-		call setline(1, "/*************************************************************************") 
-		call append(line("."), "	> File Name: ".expand("%")) 
-		call append(line(".")+1, "	> Author: ") 
-		call append(line(".")+2, "	> Mail: ") 
-		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
-		call append(line(".")+4, " ************************************************************************/") 
-		call append(line(".")+5, "")
-	endif
- 
-	if expand("%:e") == 'cpp'
-		call append(line(".")+6, "#include<iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
-	endif
+    else
+        call setline(1, "/*************************************************************************")
+        call append(line("."), "    > File Name: ".expand("%"))
+        call append(line(".")+1, "  > Author: ")
+        call append(line(".")+2, "  > Mail: ")
+        call append(line(".")+3, "  > Created Time: ".strftime("%c"))
+        call append(line(".")+4, " ************************************************************************/")
+        call append(line(".")+5, "")
+    endif
 
-	if &filetype == 'c'
-		call append(line(".")+6, "#include<stdio.h>")
-		call append(line(".")+7, "")
-	endif
+    if expand("%:e") == 'cpp'
+        call append(line(".")+6, "#include<iostream>")
+        call append(line(".")+7, "using namespace std;")
+        call append(line(".")+8, "")
+    endif
 
-	if expand("%:e") == 'h'
-		call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
-		call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
-		call append(line(".")+8, "#endif")
-	endif
+    if &filetype == 'c'
+        call append(line(".")+6, "#include<stdio.h>")
+        call append(line(".")+7, "")
+    endif
 
-	if &filetype == 'java'
-		call append(line(".")+6,"public class ".expand("%:r"))
-		call append(line(".")+7,"")
-	endif
-endfunc 
+    if expand("%:e") == 'h'
+        call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
+        call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
+        call append(line(".")+8, "#endif")
+    endif
+
+    if &filetype == 'java'
+    call append(line(".")+6,"public class ".expand("%:r"))
+    call append(line(".")+7,"")
+    endif
+endfunc
 " 新建文件后，自动定位到文件末尾
 autocmd BufNewFile * normal G
 
 " -----------------------------------------------------------------------------
-" Autocommands 
+" Autocommands
 " -----------------------------------------------------------------------------
-" 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示 
-if has("autocmd") 
-    autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number 
-    autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o--> 
-    autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o 
-    autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100 
-    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim 
-    autocmd BufReadPost * 
-    \ if line("'\"") > 0 && line("'\"") <= line("$") | 
-    \ exe " normal g`\"" | 
-    \ endif 
+" 只在下列文件类型被侦测到的时候显示行号，普通文本文件不显示
+if has("autocmd")
+    autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number
+    autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o-->
+    autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o
+    autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100
+    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \ exe " normal g`\"" |
+    \ endif
 endif "has("autocmd")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 去空行  
-nnoremap <F2> :g/^\s*$/d<CR> 
+" 去空行
+nnoremap <F2> :g/^\s*$/d<CR>
 
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
@@ -602,20 +602,20 @@ nnoremap <leader>e :edit $MYVIMRC<cr>
 " C，C++ 按F5编译运行
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'cpp'
-		exec "!g++ % -std=c++11 -o %<"
-		exec "!time ./%<"
-	elseif &filetype == 'java' 
-		exec "!javac %" 
-		exec "!time java %<"
-	elseif &filetype == 'sh'
-		:!time bash %
-	elseif &filetype == 'python'
-		exec "!time python2.7 %"
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -std=c++11 -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java %<"
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        exec "!time python2.7 %"
     elseif &filetype == 'html'
         exec "!firefox % &"
     elseif &filetype == 'go'
@@ -624,20 +624,20 @@ func! CompileRunGcc()
     elseif &filetype == 'mkd'
         exec "!~/.vim/markdown.pl % > %.html &"
         exec "!firefox %.html &"
-	endif
+    endif
 endfunc
 
 " C,C++的调试
 map <F8> :call Rungdb()<CR>
 func! Rungdb()
-	exec "w"
-	if &filetype == 'c'
-		exec "!g++ % -o %<"
-		exec "!gdb ./%<"
-	elseif &filetype == 'cpp'	
-		exec "!g++ % -std=c++11 -g -o %<"
-		exec "!gdb ./%<"
-	endif
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!gdb ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -std=c++11 -g -o %<"
+        exec "!gdb ./%<"
+    endif
 endfunc
 
 " 代码格式优化化   需安装Artistic Style
@@ -748,12 +748,12 @@ endif
 " Tag list (ctags)
 " -----------------------------------------------------------------------------
 if (has("gui_running"))
-	let Tlist_Ctags_Cmd = '$VIM\vim81'
+    let Tlist_Ctags_Cmd = '$VIM\vim81'
 else
-	let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 endif
 
-" 显示一个文件的tag 
+" 显示一个文件的tag
 let Tlist_Show_One_File=1
 
 " 当只剩下Tlist的时候自动关闭
@@ -762,29 +762,29 @@ let Tlist_Exit_OnlyWindow=1
 " 在右侧显示窗口
 let Tlist_Use_Right_Window = 1
 
-" 自动打开TagList的window  
+" 自动打开TagList的window
 let Tlist_Auto_Open=0
 
 " 压缩方式
 let Tlist_Compact_Format = 0
 
-" 打开tags用单击 
+" 打开tags用单击
 let Tlist_Use_SingleClick = 1
 
-" close tag folders for inactive buffers  
+" close tag folders for inactive buffers
 let Tlist_File_Fold_Auto_Close=1
- 
-" show the fold indiactor column in the taglist window  
+
+" show the fold indiactor column in the taglist window
 let Tlist_Enable_Fold_Column=1
 
-" 自动更新TagList包含最新编辑的文件  
+" 自动更新TagList包含最新编辑的文件
 let Tlist_Auto_Update=1
 
-" 按照名称排序  
+" 按照名称排序
 let Tlist_Sort_Type="name"
 
-" 让TagList始终解释文件中的tag,不管TagList窗口有没有打开  
-let Tlist_Process_File_Always=1 
+" 让TagList始终解释文件中的tag,不管TagList窗口有没有打开
+let Tlist_Process_File_Always=1
 
 " 窗口宽度
 let Tlist_WinWidth = 20
@@ -822,7 +822,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.whitespace = 'Ξ'
 
 " 映射切换buffer的键位
@@ -833,7 +833,7 @@ nnoremap ]b :bn<CR>
 " Doxygen自动添加注释
 " 使用方式：
 " (1) 在函数名的一行按fg键即可自动生成如下的注释
-" (2) 在光标移动到源文件的开始出，然后在命令行下输入 :DoxAutho	
+" (2) 在光标移动到源文件的开始出，然后在命令行下输入 :DoxAutho
 " -----------------------------------------------------------------------------
 map fg :Dox<CR>
 let g:DoxygenToolkit_briefTag_pre="@Breif: "
@@ -845,7 +845,7 @@ let g:Doxygen_enhanced_color=1
 let g:DoxygenToolkit_blockHeader="===================================="
 let g:DoxygenToolkit_blockFooter="===================================="
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " NERDTree快捷键
 " -----------------------------------------------------------------------------
 set encoding=utf-8
@@ -861,17 +861,17 @@ inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeHighlightFolders = 1         
-let g:NERDTreeHighlightFoldersFullName = 1 
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
 " 只剩 NERDTree时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
 " -----------------------------------------------------------------------------
 " closetag settings 自动补全html/xml标签
 " -----------------------------------------------------------------------------
-let g:closetag_html_style=1 
+let g:closetag_html_style=1
 if filereadable(expand("$VIMRUNTIME/plugin/closetag.vim"))
     au FileType html,xml source $VIMRUNTIME/plugin/closetag.vim
 endif
@@ -912,7 +912,7 @@ let g:do_xhtml_mappings = 'yes'
 let g:no_html_tab_mapping = 'yes'
 let g:no_html_toolbar = 'yes'
 let g:html_tag_case_autodetect = 'yes'
-" html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase" 
+" html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase"
 let g:html_tag_case = 'lowercase'
 "let g:html_map_leader = g:maplocalleader
 let g:html_map_entity_leader = '\'
@@ -964,5 +964,3 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
 
 " let mapleader = ","
-
-
