@@ -267,7 +267,9 @@ set ignorecase
 " 不要高亮被搜索的句子（phrases） 
 set nohlsearch 
 
-" 在搜索时，输入的词句的逐字符高亮（类似firefox的搜索） 
+" 在搜索时，输入的词句的逐字符高亮，如要查找book单词，当输入到/b时，会自动找到
+" 第一个b开头的单词，当输入到/bo时，会自动找到第一个bo开头的单词，依次类推，
+" 进行查找时，使用此设置会快速找到答案，当你找要匹配的单词时，别忘记回车
 set incsearch
 
 " 设置搜索时忽略大小写  
@@ -284,6 +286,10 @@ set scrolloff=3
 
 " 不要闪烁 
 set novisualbell 
+
+" 在搜索时如到达文件尾则绕回文件头继续搜索
+set ws
+"set nows
 
 " -----------------------------------------------------------------------------
 "  < 编写文件时的配置 >
@@ -401,7 +407,8 @@ if g:isGUI
 endif
 
 " 设置字体
-set gfn=Consolas:h12:cANSI
+"set gfn=Consolas:h12:cANSI
+set gfn=Powerline_Consolas:h12:cANSI
 
 " 添加水平滚动条  
 "set guioptions+=b  
@@ -445,11 +452,14 @@ set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\
 " 显示行号  
 set number
 
-" 指定不折行
+" 不自动换行显示
 set nowrap  
 
 " 设置代码匹配,包括括号匹配情况  
 set showmatch 
+
+" 当vim进行编辑时，如果命令错误，会发出一个响声，该设置去掉响声
+set vb t_vb=
 
 """"""""""""""""""""""""""""""
 " Other Settings
@@ -805,12 +815,15 @@ if !exists('g:airline_symbols')
 endif
 
 "unicode symbols
-let g:airline_left_sep = '►'
-let g:airline_left_alt_sep = '>'
-let g:airline_right_sep = '◄'
-let g:airline_right_alt_sep = '<'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.whitespace = 'Ξ'
 
 " 映射切换buffer的键位
 nnoremap [b :bp<CR>
