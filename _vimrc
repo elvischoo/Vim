@@ -461,9 +461,12 @@ set showmatch
 " 当vim进行编辑时，如果命令错误，会发出一个响声，该设置去掉响声
 set vb t_vb=
 
-""""""""""""""""""""""""""""""
+" 防止特殊符号无法正常显示
+set ambiwidth=double
+
+" -----------------------------------------------------------------------------
 " Other Settings
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 " 让配置变更立即生效
 if g:iswindows
     autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
@@ -490,9 +493,9 @@ set wildmenu         " vim自身命名行模式智能补全
 au BufRead,BufNewFile *.txt setfiletype txt
 au BufRead,BufNewFile *.txt setlocal ft=txt
 
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 " 括号自动补全
-""""""""""""""""""""""""""""""
+" -----------------------------------------------------------------------------
 inoremap ( ()<ESC>i
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap { {<CR>}<ESC>O
@@ -711,13 +714,13 @@ endfunc
 "  < Vim-Plug 插件管理工具配置 >
 " -----------------------------------------------------------------------------
 " 插件使用：(1)Begin the section with call plug#begin()
-"			(2)List the plugins with Plug commands
-"			(3)call plug#end() to update &runtimepath and initialize plugin system
-" 命令：(1)PlugStatus   用于检查插件的状态
-"		(2)PlugInstall  安装字体后必须设置
-"       (3)PlugUpdate	检查插件并更新
-"		(4)PlugClean	清除插件
-"		(5)PlugUpgrade	更新插件本身
+"          (2)List the plugins with Plug commands
+"          (3)call plug#end() to update &runtimepath and initialize plugin system
+" 命令： (1)PlugStatus   用于检查插件的状态
+"       (2)PlugInstall  安装字体后必须设置
+"       (3)PlugUpdate   检查插件并更新
+"       (4)PlugClean    清除插件
+"       (5)PlugUpgrade  更新插件本身
 
 " Specify a directory for plugins
 " - For vim: $VIM/vimfiles/bundle
