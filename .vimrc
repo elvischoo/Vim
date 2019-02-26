@@ -740,6 +740,8 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     Plug 'vim-airline/vim-airline-themes'
     "Plug 'ryanoasis/vim-devicons'
     "Plug 'gko/vim-coloresque'
+    "Plug 'w0rp/ale'
+    "Plug 'luochen1990/rainbow'
     call plug#end()
 endif
 
@@ -832,21 +834,11 @@ let g:airline_symbols.whitespace = 'Ξ'
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
-" -----------------------------------------------------------------------------
-" Doxygen自动添加注释
-" 使用方式：
-" (1) 在函数名的一行按fg键即可自动生成如下的注释
-" (2) 在光标移动到源文件的开始出，然后在命令行下输入 :DoxAutho
-" -----------------------------------------------------------------------------
-map fg :Dox<CR>
-let g:DoxygenToolkit_briefTag_pre="@Breif: "
-let g:DoxygenToolkit_paramTag_pre="@Param: "
-let g:DoxygenToolkit_returnTag="@Returns: "
-let g:DoxygenToolkit_authorName="xxxxx: "
-let g:DoxygenToolkit_briefTag_funcName="yes"
-let g:Doxygen_enhanced_color=1
-let g:DoxygenToolkit_blockHeader="===================================="
-let g:DoxygenToolkit_blockFooter="===================================="
+" Rainbow {
+    if isdirectory(expand("~/.vim/bundle/rainbow/"))
+        let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+    endif
+"}
 
 " -----------------------------------------------------------------------------
 " NERDTree快捷键
@@ -881,55 +873,6 @@ endif
 if filereadable(expand("$VIMRUNTIME/plugin/html_autoclosetag.vim"))
     au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
 endif
-
-" -----------------------------------------------------------------------------
-" syntastic
-" -----------------------------------------------------------------------------
-" 设置error和warning的标志
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol='?'
-let g:syntastic_warning_symbol='?'
-" 总是打开Location List（相当于QuickFix）窗口，如果你发现syntastic因为与其他插件冲突而经常崩溃，将下面选项置0
-let g:syntastic_always_populate_loc_list = 1
-" 自动打开Locaton List，默认值为2，表示发现错误时不自动打开，当修正以后没有再发现错误时自动关闭，置1表示自动打开自动关闭，0表示关闭自动打开和自动关闭，3表示自动打开，但不自动关闭
-let g:syntastic_auto_loc_list = 1
-" 修改Locaton List窗口高度
-let g:syntastic_loc_list_height = 5
-" 打开文件时自动进行检查
-let g:syntastic_check_on_open = 1
-" 自动跳转到发现的第一个错误或警告处
-let g:syntastic_auto_jump = 1
-" 进行实时检查，如果觉得卡顿，将下面的选项置为1
-let g:syntastic_check_on_wq = 0
-" 高亮错误
-let g:syntastic_enable_highlighting=1
-" 让syntastic支持C++11
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-" -----------------------------------------------------------------------------
-" html
-" -----------------------------------------------------------------------------
-" xhtml compatible tags to be defined
-let g:do_xhtml_mappings = 'yes'
-let g:no_html_tab_mapping = 'yes'
-let g:no_html_toolbar = 'yes'
-let g:html_tag_case_autodetect = 'yes'
-" html tag大小写设置，可以设置值"l" / "lower" / "lowercase" or "u" / "upper" /"uppercase"
-let g:html_tag_case = 'lowercase'
-"let g:html_map_leader = g:maplocalleader
-let g:html_map_entity_leader = '\'
-let g:no_html_map_override = 'yes'
-let g:no_html_maps = '^\(;ah\|;im\|;H\d\)$'
-let g:no_html_menu = 'yes'
-let g:force_html_menu = 'yes'
-"let g:html_authorname  = 'John Smith'
-"let g:html_authoremail = 'jsmith@example.com'
-let g:html_bgcolor     = '#FFFFFF'
-let g:html_textcolor   = '#000000'
-let g:html_linkcolor   = '#0000EE'
-let g:html_alinkcolor  = '#FF0000'
-let g:html_vlinkcolor  = '#990066'
 
 " =============================================================================
 "                          << 以下为常用自动命令配置 >>
