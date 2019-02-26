@@ -578,7 +578,7 @@ if has("autocmd")
     autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o
     autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100
     "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim
-	autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \ exe " normal g`\"" |
@@ -673,15 +673,15 @@ endfunc
 " 结束定义FormartSrc
 
 function! StripTrailingWhitespace()
-	" Preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" do the business:
-	%s/\s\+$//e
-	" clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    %s/\s\+$//e
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 
 " =============================================================================
