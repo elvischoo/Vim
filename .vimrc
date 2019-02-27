@@ -711,61 +711,61 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     Plug 'vim-airline/vim-airline-themes'
     "Plug 'ryanoasis/vim-devicons'
     "Plug 'gko/vim-coloresque'
-	"Plug 'Shougo/neocomplcache'
-	
-	" Writing {
-		"Plug 'reedes/vim-litecorrect'
-		"Plug 'reedes/vim-textobj-sentence'
-		"Plug 'reedes/vim-textobj-quote'
-		"Plug 'reedes/vim-wordy'
-    " }
-	
-	" Snippets & AutoComplete {
-		"Plug 'garbas/vim-snipmate'
-		"Plug 'honza/vim-snippets'
-		" Source support_function.vim to support vim-snippets.
-		if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-			source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-		endif
+    "Plug 'Shougo/neocomplcache'
 
-	" }
-	
-	" General Programming {
-		" Pick one of the checksyntax, jslint, or syntastic
-		"Plug 'w0rp/ale'
-		"Plug 'tpope/vim-fugitive'
-		"Plug 'mattn/webapi-vim'
-		"Plug 'mattn/gist-vim'
-		"Plug 'scrooloose/nerdcommenter'
-		"Plug 'tpope/vim-commentary'
-		"Plug 'godlygeek/tabular'
-		"Plug 'luochen1990/rainbow'
-		if executable('ctags')
-			"Plug 'majutsushi/tagbar'
-		endif
+    " Writing {
+        "Plug 'reedes/vim-litecorrect'
+        "Plug 'reedes/vim-textobj-sentence'
+        "Plug 'reedes/vim-textobj-quote'
+        "Plug 'reedes/vim-wordy'
     " }
 
-	" Python {
-		"Plug 'klen/python-mode'
-		"Plug 'yssource/python.vim'
-		"Plug 'python_match.vim'
-		"Plug 'pythoncomplete'
-	" }
-	
-	" Javascript {
-		"Plug 'elzr/vim-json'
-		"Plug 'groenewege/vim-less'
-		"Plug 'pangloss/vim-javascript'
-		"Plug 'briancollins/vim-jst'
-		"Plug 'kchmck/vim-coffee-script'
+    " Snippets & AutoComplete {
+        "Plug 'garbas/vim-snipmate'
+        "Plug 'honza/vim-snippets'
+        " Source support_function.vim to support vim-snippets.
+        if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
+            source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
+        endif
+
     " }
 
-	" HTML {
-		"Plug 'amirh/HTML-AutoCloseTag'
-		"Plug 'hail2u/vim-css3-syntax'
-		"Plug 'gorodinskiy/vim-coloresque'
-		"Plug 'tpope/vim-haml'
-		"Plug 'mattn/emmet-vim'
+    " General Programming {
+        " Pick one of the checksyntax, jslint, or syntastic
+        "Plug 'w0rp/ale'
+        "Plug 'tpope/vim-fugitive'
+        "Plug 'mattn/webapi-vim'
+        "Plug 'mattn/gist-vim'
+        "Plug 'scrooloose/nerdcommenter'
+        "Plug 'tpope/vim-commentary'
+        "Plug 'godlygeek/tabular'
+        "Plug 'luochen1990/rainbow'
+        if executable('ctags')
+            "Plug 'majutsushi/tagbar'
+        endif
+    " }
+
+    " Python {
+        "Plug 'klen/python-mode'
+        "Plug 'yssource/python.vim'
+        "Plug 'python_match.vim'
+        "Plug 'pythoncomplete'
+    " }
+
+    " Javascript {
+        "Plug 'elzr/vim-json'
+        "Plug 'groenewege/vim-less'
+        "Plug 'pangloss/vim-javascript'
+        "Plug 'briancollins/vim-jst'
+        "Plug 'kchmck/vim-coffee-script'
+    " }
+
+    " HTML {
+        "Plug 'amirh/HTML-AutoCloseTag'
+        "Plug 'hail2u/vim-css3-syntax'
+        "Plug 'gorodinskiy/vim-coloresque'
+        "Plug 'tpope/vim-haml'
+        "Plug 'mattn/emmet-vim'
     " }
 
     call plug#end()
