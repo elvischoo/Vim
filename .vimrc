@@ -226,6 +226,11 @@ set whichwrap+=<,>,h,l
 " 在被分割的窗口间显示空白，便于阅读
 set fillchars=vert:\ ,stl:\ ,stlnc:\
 
+" 允许在有未保存的修改时切换缓冲区
+"set hidden
+
+" 光标可以移动到行尾末字符后
+set virtualedit=onemore
 " -----------------------------------------------------------------------------
 "  < 编码配置 >
 " -----------------------------------------------------------------------------
@@ -234,8 +239,6 @@ set fillchars=vert:\ ,stl:\ ,stlnc:\
 " 设置编码方式
 set encoding=utf-8                                    "设置gvim内部编码，默认不更改
 set fileencoding=utf-8                                "设置当前文件编码，可以更改，如：gbk（同cp936）
-
-" 设置打开文件的编码格式
 set fileencodings=ucs-bom,utf-8,gbk,cp936,latin-1     "设置支持打开的文件的编码
 
 " 文件格式，默认 ffs=dos,unix
@@ -272,13 +275,10 @@ set nohlsearch
 " 进行查找时，使用此设置会快速找到答案，当你找要匹配的单词时，别忘记回车
 set incsearch
 
-" 设置搜索时忽略大小写
-set ignorecase
-
 " 当搜索的时候尝试smart
 set smartcase
 
-" 输入:set list命令是应该显示些啥？
+" 输入:set list命令时应显示哪些字符
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$
 
 " 光标移动到buffer的顶部和底部时保持3行距离
@@ -443,12 +443,6 @@ set showcmd
 " 左下角显示当前Vim模式
 set showmode
 
-" 光标移动至少保留的行数
-"set scrolloff=7
-
-" 命令行（在状态行下）的高度，默认为1，这里是2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-
 " 显示行号
 set number
 
@@ -468,11 +462,7 @@ set ambiwidth=double
 " Other Settings
 " -----------------------------------------------------------------------------
 " 让配置变更立即生效
-if g:iswindows
-    autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
-else
-    autocmd! bufwritepost .vimrc source %    " .vimrc修改之后自动加载(Linux)
-endif
+autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " 设置当文件被改动时自动载入
@@ -577,13 +567,15 @@ if has("autocmd")
     autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o-->
     autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o
     autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100
-    "autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \ exe " normal g`\"" |
     \ endif
 endif "has("autocmd")
+
+" 自动切换目录为当前编辑文件所在目录
+au BufRead,BufNewFile,BufEnter * cd %:p:h
 
 " -----------------------------------------------------------------------------
 " Keyboard Commands
@@ -594,11 +586,6 @@ nnoremap <F2> :g/^\s*$/d<CR>
 
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
-
-" 映射全选+复制 ctrl+a
-map <C-A> ggVGY
-map! <C-A> <Esc>ggVGY
-map <F12> gg=G
 
 " 编辑vimrc文件
 nnoremap <leader>e :edit $MYVIMRC<cr>
@@ -644,34 +631,7 @@ func! Rungdb()
     endif
 endfunc
 
-" 代码格式优化化   需安装Artistic Style
-map <F6> :call FormartSrc()<CR><CR>
-
-" 定义FormartSrc()
-func! FormartSrc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!astyle --style=ansi -a --suffix=none %"
-    elseif &filetype == 'cpp' || &filetype == 'hpp'
-        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
-    elseif &filetype == 'perl'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'py'||&filetype == 'python'
-        exec "r !autopep8 -i --aggressive %"
-    elseif &filetype == 'java'
-        exec "!astyle --style=java --suffix=none %"
-    elseif &filetype == 'jsp'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'xml'
-        exec "!astyle --style=gnu --suffix=none %"
-    else
-        exec "normal gg=G"
-        return
-    endif
-    exec "e! %"
-endfunc
-" 结束定义FormartSrc
-
+" 去掉行尾尾随空格
 function! StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -762,164 +722,251 @@ endif
 "                          << 以下为常用插件配置 >>
 " =============================================================================
 
-" -----------------------------------------------------------------------------
-" Tag list (ctags)
-" -----------------------------------------------------------------------------
-if (has("gui_running"))
-    let Tlist_Ctags_Cmd = '$VIM\vim81'
-else
-    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-endif
+" Plugins {
 
-" 显示一个文件的tag
-let Tlist_Show_One_File=1
+    " Taglist {
+        if (has("gui_running"))
+            let Tlist_Ctags_Cmd = '$VIM\vim81'
+        else
+            let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+        endif
+        let Tlist_Show_One_File=1        " 显示一个文件的tag
+        let Tlist_Exit_OnlyWindow=1        " 当只剩下Tlist的时候自动关闭
+        let Tlist_Use_Right_Window = 1    " 在右侧显示窗口
+        let Tlist_Auto_Open=0            " 自动打开TagList的window
+        let Tlist_Compact_Format = 0    " 压缩方式
+        let Tlist_Use_SingleClick = 1    " 打开tags用单击
+        let Tlist_WinWidth = 20            " 窗口宽度
+        let Tlist_File_Fold_Auto_Close=1    " close tag folders for inactive buffers
+        let Tlist_Enable_Fold_Column=1        " show the fold indiactor column in the taglist window
+        let Tlist_Auto_Update=1                " 自动更新TagList包含最新编辑的文件
+        let Tlist_Sort_Type="name"            " 按照名称排序
+        let Tlist_Process_File_Always=1        " 让TagList始终解释文件中的tag,不管TagList窗口有没有打开
 
-" 当只剩下Tlist的时候自动关闭
-let Tlist_Exit_OnlyWindow=1
+        nnoremap <silent> <A-4> :TlistToggle<CR>
+    " }
 
-" 在右侧显示窗口
-let Tlist_Use_Right_Window = 1
+    " Ctags {
+        set tags=./tags
+        set autochdir
+        "set tags+=D:\Workarea\Project\HacLink\HacLink\tags
+        " 手动刷新tags
+        nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
+    " }
 
-" 自动打开TagList的window
-let Tlist_Auto_Open=0
 
-" 压缩方式
-let Tlist_Compact_Format = 0
+    " airline {
+        let g:airline#extensions#tabline#enabled = 1            " 开启tabline
+        let g:airline#extensions#tabline#left_sep = ' '            " tabline中当前buffer两端的分隔字符
+        let g:airline#extensions#tabline#left_alt_sep = '|'        " tabline中未激活buffer两端的分隔字符
+        let g:airline#extensions#tabline#buffer_nr_show = 1        " tabline中buffer显示编号
 
-" 打开tags用单击
-let Tlist_Use_SingleClick = 1
+        if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+        endif
 
-" close tag folders for inactive buffers
-let Tlist_File_Fold_Auto_Close=1
+        "let g:airline_theme="onedark"
 
-" show the fold indiactor column in the taglist window
-let Tlist_Enable_Fold_Column=1
+        let g:airline_powerline_fonts = 1            " 安装字体后必须设置
 
-" 自动更新TagList包含最新编辑的文件
-let Tlist_Auto_Update=1
+        "unicode symbols
+        let g:airline_left_sep = ''
+        let g:airline_left_alt_sep = ''
+        let g:airline_right_sep = ''
+        let g:airline_right_alt_sep = ''
+        let g:airline_symbols.branch = ''
+        let g:airline_symbols.readonly = ''
+        let g:airline_symbols.linenr = ''
+        let g:airline_symbols.maxlinenr = ''
+        let g:airline_symbols.whitespace = 'Ξ'
+    " }
 
-" 按照名称排序
-let Tlist_Sort_Type="name"
+    " Rainbow {
+        if isdirectory(expand("~/.vim/bundle/rainbow/"))
+            let g:rainbow_active = 1         "0 if you want to enable it later via :RainbowToggle
+        endif
+    "}
 
-" 让TagList始终解释文件中的tag,不管TagList窗口有没有打开
-let Tlist_Process_File_Always=1
+    " AutoCloseTag {
+        " Make it so AutoCloseTag works for xml and xhtml files as well
+        if filereadable(expand("$VIMRUNTIME/plugin/html_autoclosetag.vim"))
+            au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+            nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+        endif
+    " }
 
-" 窗口宽度
-let Tlist_WinWidth = 20
-nnoremap <silent> <A-4> :TlistToggle<CR>
-set tags=./tags
-set autochdir
-"set tags+=D:\Workarea\Project\HacLink\HacLink\tags
-" 手动刷新tags
-nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
+    " NerdTree {
+        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+            nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+            inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
 
-" -----------------------------------------------------------------------------
-" airline插件的设定
-" -----------------------------------------------------------------------------
-"let g:airline_theme="onedark"
-" 安装字体后必须设置
-let g:airline_powerline_fonts = 1
+            let g:NERDTreeWinPos="left"
+            let g:NERDTreeWinSize=25
+            let g:NERDTreeShowLineNumbers=1
+            let g:neocomplcache_enable_at_startup = 1
+            let NERDTreeHighlightCursorline=1
+            let g:NERDTreeFileExtensionHighlightFullName = 1
+            let g:NERDTreeExactMatchHighlightFullName = 1
+            let g:NERDTreePatternMatchHighlightFullName = 1
+            let g:NERDTreeHighlightFolders = 1
+            let g:NERDTreeHighlightFoldersFullName = 1
+            let g:NERDTreeDirArrowExpandable='▷'
+            let g:NERDTreeDirArrowCollapsible='▼'
+            " 只剩 NERDTree时自动关闭
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+        endif
+    " }
 
-" 开启tabline
-let g:airline#extensions#tabline#enabled = 1
-" tabline中当前buffer两端的分隔字符
-let g:airline#extensions#tabline#left_sep = ' '
-" tabline中未激活buffer两端的分隔字符
-let g:airline#extensions#tabline#left_alt_sep = '|'
-" tabline中buffer显示编号
-let g:airline#extensions#tabline#buffer_nr_show = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+    " PyMode {
+        " Disable if python support not present
+        if !has('python') && !has('python3')
+            let g:pymode = 0
+        endif
 
-"unicode symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.whitespace = 'Ξ'
+        if isdirectory(expand("~/.vim/bundle/python-mode"))
+            let g:pymode_lint_checkers = ['pyflakes']
+            let g:pymode_trim_whitespaces = 0
+            let g:pymode_options = 0
+            let g:pymode_rope = 0
+        endif
+    " }
 
-" 映射切换buffer的键位
-nnoremap [b :bp<CR>
-nnoremap ]b :bn<CR>
+    " ctrlp {
+        if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
+            let g:ctrlp_working_path_mode = 'ra'
+            nnoremap <silent> <D-t> :CtrlP<CR>
+            nnoremap <silent> <D-r> :CtrlPMRU<CR>
+            let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
-" Rainbow {
-    if isdirectory(expand("~/.vim/bundle/rainbow/"))
-        let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-    endif
-"}
+            if executable('ag')
+                let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+            elseif executable('ack-grep')
+                let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
+            elseif executable('ack')
+                let s:ctrlp_fallback = 'ack %s --nocolor -f'
+            " On Windows use "dir" as fallback command.
+            elseif WINDOWS()
+                let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+            else
+                let s:ctrlp_fallback = 'find %s -type f'
+            endif
+            if exists("g:ctrlp_user_command")
+                unlet g:ctrlp_user_command
+            endif
+            let g:ctrlp_user_command = {
+                \ 'types': {
+                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': s:ctrlp_fallback
+            \ }
 
-" -----------------------------------------------------------------------------
-" NERDTree快捷键
-" -----------------------------------------------------------------------------
-set encoding=utf-8
-nmap <F2> :NERDTree  <CR>
-" NERDTree.vim
-let g:NERDTreeWinPos="left"
-let g:NERDTreeWinSize=25
-let g:NERDTreeShowLineNumbers=1
-let g:neocomplcache_enable_at_startup = 1
-let NERDTreeHighlightCursorline=1
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeHighlightFolders = 1
-let g:NERDTreeHighlightFoldersFullName = 1
-let g:NERDTreeDirArrowExpandable='▷'
-let g:NERDTreeDirArrowCollapsible='▼'
-" 只剩 NERDTree时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+            if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
+                " CtrlP extensions
+                let g:ctrlp_extensions = ['funky']
 
-" -----------------------------------------------------------------------------
-" closetag settings 自动补全html/xml标签
-" -----------------------------------------------------------------------------
-let g:closetag_html_style=1
-if filereadable(expand("$VIMRUNTIME/plugin/closetag.vim"))
-    au FileType html,xml source $VIMRUNTIME/plugin/closetag.vim
-endif
-if filereadable(expand("$VIMRUNTIME/plugin/html_autoclosetag.vim"))
-    au FileType html,xml so $VIMRUNTIME/plugin/html_autoclosetag.vim
-endif
+                "funky
+                nnoremap <Leader>fu :CtrlPFunky<Cr>
+            endif
+        endif
+    "}
 
-" =============================================================================
-"                          << 以下为常用自动命令配置 >>
-" =============================================================================
+    " TagBar {
+        if isdirectory(expand("~/.vim/bundle/tagbar/"))
+            nnoremap <silent> <leader>tt :TagbarToggle<CR>
+        endif
+    "}
 
-" 自动切换目录为当前编辑文件所在目录
-au BufRead,BufNewFile,BufEnter * cd %:p:h
+    " neocomplete {
+        if isdirectory(expand("~/.vim/bundle/neocomplete/"))
+            let g:acp_enableAtStartup = 0
+            let g:neocomplete#enable_at_startup = 1
+            let g:neocomplete#enable_smart_case = 1
+            let g:neocomplete#enable_auto_delimiter = 1
+            let g:neocomplete#max_list = 15
+            let g:neocomplete#force_overwrite_completefunc = 1
 
-" =============================================================================
-"                     << windows 下解决 Quickfix 乱码问题 >>
-" =============================================================================
-" windows 默认编码为 cp936，而 Gvim(Vim) 内部编码为 utf-8，所以常常输出为乱码
-" 以下代码可以将编码为 cp936 的输出信息转换为 utf-8 编码，以解决输出乱码问题
-" 但好像只对输出信息全部为中文才有满意的效果，如果输出信息是中英混合的，那可能
-" 不成功，会造成其中一种语言乱码，输出信息全部为英文的好像不会乱码
-" 如果输出信息为乱码的可以试一下下面的代码，如果不行就还是给它注释掉
 
-" if g:iswindows
-"     function QfMakeConv()
-"         let qflist = getqflist()
-"         for i in qflist
-"            let i.text = iconv(i.text, "cp936", "utf-8")
-"         endfor
-"         call setqflist(qflist)
-"      endfunction
-"      au QuickfixCmdPost make call QfMakeConv()
-" endif
+            " Define dictionary.
+            let g:neocomplete#sources#dictionary#dictionaries = {
+                        \ 'default' : '',
+                        \ 'vimshell' : $HOME.'/.vimshell_hist',
+                        \ 'scheme' : $HOME.'/.gosh_completions'
+                        \ }
 
-" =============================================================================
-"                          << 其它 >>
-" =============================================================================
-" 注：上面配置中的"<Leader>"在本软件中设置为"\"键（引号里的反斜杠），如<Leader>t
-" 指在常规模式下按"\"键加"t"键，这里不是同时按，而是先按"\"键后按"t"键，间隔在一
-" 秒内，而<Leader>cs是先按"\"键再按"c"又再按"s"键；如要修改"<leader>"键，可以把
-" 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
+            " Define keyword.
+            if !exists('g:neocomplete#keyword_patterns')
+                let g:neocomplete#keyword_patterns = {}
+            endif
+            let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" let mapleader = ","
+            " Enable heavy omni completion.
+            if !exists('g:neocomplete#sources#omni#input_patterns')
+                let g:neocomplete#sources#omni#input_patterns = {}
+            endif
+            let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+            let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+            let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+    " }
+
+    " neocomplcache {
+        if isdirectory(expand("~/.vim/bundle/neocomplcache/"))
+            let g:acp_enableAtStartup = 0
+            let g:neocomplcache_enable_at_startup = 1
+            let g:neocomplcache_enable_camel_case_completion = 1
+            let g:neocomplcache_enable_smart_case = 1
+            let g:neocomplcache_enable_underbar_completion = 1
+            let g:neocomplcache_enable_auto_delimiter = 1
+            let g:neocomplcache_max_list = 15
+            let g:neocomplcache_force_overwrite_completefunc = 1
+
+            " Define dictionary.
+            let g:neocomplcache_dictionary_filetype_lists = {
+                        \ 'default' : '',
+                        \ 'vimshell' : $HOME.'/.vimshell_hist',
+                        \ 'scheme' : $HOME.'/.gosh_completions'
+                        \ }
+
+            " Define keyword.
+            if !exists('g:neocomplcache_keyword_patterns')
+                let g:neocomplcache_keyword_patterns = {}
+            endif
+            let g:neocomplcache_keyword_patterns._ = '\h\w*'
+
+            " Enable omni completion.
+            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+            " Enable heavy omni completion.
+            if !exists('g:neocomplcache_omni_patterns')
+                let g:neocomplcache_omni_patterns = {}
+            endif
+            let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+            let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+            let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+            let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+    " }
+
+    " Normal Vim omni-completion {
+            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+        endif
+    " }
+" }
