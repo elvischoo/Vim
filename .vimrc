@@ -700,44 +700,22 @@ endfunction
 " - Avoid using standard Vim directory names like 'plugin'
 if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     call plug#begin('$VIM/vimfiles/bundle')
-    Plug 'othree/vim-autocomplpop'
-    " On-demand loading
-    "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    " Loaded when html file is opened
-    "Plug 'othree/html5.vim', { 'for': 'html' }
-    "Plug 'scrooloose/nerdcommenter'
-    "Plug 'Valloric/YouCompleteMe'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    "Plug 'ryanoasis/vim-devicons'
-    "Plug 'gko/vim-coloresque'
-    "Plug 'Shougo/neocomplcache'
 
-    " Writing {
-        "Plug 'reedes/vim-litecorrect'
-        "Plug 'reedes/vim-textobj-sentence'
-        "Plug 'reedes/vim-textobj-quote'
-        "Plug 'reedes/vim-wordy'
-    " }
-
-    " Snippets & AutoComplete {
-        "Plug 'garbas/vim-snipmate'
-        "Plug 'honza/vim-snippets'
-        " Source support_function.vim to support vim-snippets.
-        if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-            source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-        endif
-
+    " General {
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
     " }
 
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
         "Plug 'w0rp/ale'
-        "Plug 'tpope/vim-fugitive'
-        "Plug 'mattn/webapi-vim'
-        "Plug 'mattn/gist-vim'
+        "Plug 'scrooloose/nerdcommenter'
+        "Plug 'Valloric/YouCompleteMe'
+        Plug 'othree/vim-autocomplpop'
+        "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         "Plug 'scrooloose/nerdcommenter'
         "Plug 'tpope/vim-commentary'
+        "Plug 'Shougo/neocomplcache'
         "Plug 'godlygeek/tabular'
         "Plug 'luochen1990/rainbow'
         if executable('ctags')
@@ -764,6 +742,7 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
         "Plug 'amirh/HTML-AutoCloseTag'
         "Plug 'hail2u/vim-css3-syntax'
         "Plug 'gorodinskiy/vim-coloresque'
+        "Plug 'othree/html5.vim', { 'for': 'html' }
         "Plug 'tpope/vim-haml'
         "Plug 'mattn/emmet-vim'
     " }
