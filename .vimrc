@@ -702,6 +702,8 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     call plug#begin('$VIM/vimfiles/bundle')
 
     " General {
+    	Plug 'scrooloose/nerdtree'
+    	Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
     " }
@@ -711,11 +713,9 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
         "Plug 'w0rp/ale'
         "Plug 'scrooloose/nerdcommenter'
         "Plug 'Valloric/YouCompleteMe'
-        Plug 'othree/vim-autocomplpop'
+        "Plug 'othree/vim-autocomplpop'
         "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         "Plug 'scrooloose/nerdcommenter'
-        "Plug 'tpope/vim-commentary'
-        "Plug 'Shougo/neocomplcache'
         "Plug 'godlygeek/tabular'
         "Plug 'luochen1990/rainbow'
         if executable('ctags')
@@ -814,7 +814,7 @@ endif
     " }
 
     " Rainbow {
-        if isdirectory(expand("~/.vim/bundle/rainbow/"))
+        if isdirectory(expand("$VIM/vimfiles/bundle/rainbow/"))
             let g:rainbow_active = 1         "0 if you want to enable it later via :RainbowToggle
         endif
     "}
@@ -828,10 +828,12 @@ endif
     " }
 
     " NerdTree {
-        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+        if isdirectory(expand("$VIM/vimfiles/bundle/nerdtree"))
             nnoremap <silent> <leader>n :NERDTreeToggle<cr>
             inoremap <silent> <leader>n <esc> :NERDTreeToggle<cr>
 
+            " Open NERDTree automatically when vim starts up
+            autocmd vimenter * NERDTree
             let g:NERDTreeWinPos="left"
             let g:NERDTreeWinSize=25
             let g:NERDTreeShowLineNumbers=1
@@ -842,7 +844,7 @@ endif
             let g:NERDTreePatternMatchHighlightFullName = 1
             let g:NERDTreeHighlightFolders = 1
             let g:NERDTreeHighlightFoldersFullName = 1
-            let g:NERDTreeDirArrowExpandable='▷'
+            let g:NERDTreeDirArrowExpandable='►'
             let g:NERDTreeDirArrowCollapsible='▼'
             " 只剩 NERDTree时自动关闭
             autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
@@ -855,7 +857,7 @@ endif
             let g:pymode = 0
         endif
 
-        if isdirectory(expand("~/.vim/bundle/python-mode"))
+        if isdirectory(expand("$VIM/vimfiles/bundle/python-mode"))
             let g:pymode_lint_checkers = ['pyflakes']
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
@@ -863,143 +865,18 @@ endif
         endif
     " }
 
-    " ctrlp {
-        if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
-            let g:ctrlp_working_path_mode = 'ra'
-            nnoremap <silent> <D-t> :CtrlP<CR>
-            nnoremap <silent> <D-r> :CtrlPMRU<CR>
-            let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-            if executable('ag')
-                let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-            elseif executable('ack-grep')
-                let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-            elseif executable('ack')
-                let s:ctrlp_fallback = 'ack %s --nocolor -f'
-            " On Windows use "dir" as fallback command.
-            elseif WINDOWS()
-                let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-            else
-                let s:ctrlp_fallback = 'find %s -type f'
-            endif
-            if exists("g:ctrlp_user_command")
-                unlet g:ctrlp_user_command
-            endif
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': s:ctrlp_fallback
-            \ }
-
-            if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
-                " CtrlP extensions
-                let g:ctrlp_extensions = ['funky']
-
-                "funky
-                nnoremap <Leader>fu :CtrlPFunky<Cr>
-            endif
-        endif
-    "}
-
-    " TagBar {
-        if isdirectory(expand("~/.vim/bundle/tagbar/"))
-            nnoremap <silent> <leader>tt :TagbarToggle<CR>
-        endif
-    "}
-
-    " neocomplete {
-        if isdirectory(expand("~/.vim/bundle/neocomplete/"))
-            let g:acp_enableAtStartup = 0
-            let g:neocomplete#enable_at_startup = 1
-            let g:neocomplete#enable_smart_case = 1
-            let g:neocomplete#enable_auto_delimiter = 1
-            let g:neocomplete#max_list = 15
-            let g:neocomplete#force_overwrite_completefunc = 1
-
-
-            " Define dictionary.
-            let g:neocomplete#sources#dictionary#dictionaries = {
-                        \ 'default' : '',
-                        \ 'vimshell' : $HOME.'/.vimshell_hist',
-                        \ 'scheme' : $HOME.'/.gosh_completions'
-                        \ }
-
-            " Define keyword.
-            if !exists('g:neocomplete#keyword_patterns')
-                let g:neocomplete#keyword_patterns = {}
-            endif
-            let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-            " Enable heavy omni completion.
-            if !exists('g:neocomplete#sources#omni#input_patterns')
-                let g:neocomplete#sources#omni#input_patterns = {}
-            endif
-            let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-            let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-            let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-        endif
-    " }
-
-    " neocomplcache {
-        if isdirectory(expand("~/.vim/bundle/neocomplcache/"))
-            let g:acp_enableAtStartup = 0
-            let g:neocomplcache_enable_at_startup = 1
-            let g:neocomplcache_enable_camel_case_completion = 1
-            let g:neocomplcache_enable_smart_case = 1
-            let g:neocomplcache_enable_underbar_completion = 1
-            let g:neocomplcache_enable_auto_delimiter = 1
-            let g:neocomplcache_max_list = 15
-            let g:neocomplcache_force_overwrite_completefunc = 1
-
-            " Define dictionary.
-            let g:neocomplcache_dictionary_filetype_lists = {
-                        \ 'default' : '',
-                        \ 'vimshell' : $HOME.'/.vimshell_hist',
-                        \ 'scheme' : $HOME.'/.gosh_completions'
-                        \ }
-
-            " Define keyword.
-            if !exists('g:neocomplcache_keyword_patterns')
-                let g:neocomplcache_keyword_patterns = {}
-            endif
-            let g:neocomplcache_keyword_patterns._ = '\h\w*'
-
-            " Enable omni completion.
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-            " Enable heavy omni completion.
-            if !exists('g:neocomplcache_omni_patterns')
-                let g:neocomplcache_omni_patterns = {}
-            endif
-            let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-            let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-            let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
-    " }
-
-    " Normal Vim omni-completion {
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-        endif
+    " nerdtree-git-plugin {
+    	let s:NERDTreeIndicatorMap = {
+                \ 'Modified'  : '✹',
+                \ 'Staged'    : '✚',
+                \ 'Untracked' : '✭',
+                \ 'Renamed'   : '➜',
+                \ 'Unmerged'  : '═',
+                \ 'Deleted'   : '✖',
+                \ 'Dirty'     : '✗',
+                \ 'Clean'     : '✔︎',
+                \ 'Ignored'   : '☒',
+                \ 'Unknown'   : '?'
+                \ }
     " }
 " }
