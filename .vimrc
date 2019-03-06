@@ -462,8 +462,7 @@ set ambiwidth=double
 " Other Settings
 " -----------------------------------------------------------------------------
 " 让配置变更立即生效
-autocmd! bufwritepost _vimrc source %    " .vimrc修改之后自动加载(Windows)
-"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC		" .vimrc修改之后自动加载
 
 " 设置当文件被改动时自动载入
 set autoread
@@ -482,6 +481,12 @@ set wildmenu         " vim自身命名行模式智能补全
 " 高亮显示普通txt文件（需要txt.vim脚本）
 au BufRead,BufNewFile *.txt setfiletype txt
 au BufRead,BufNewFile *.txt setlocal ft=txt
+
+" windows系统下与source insight 软件切换
+nnoremap <silent> <F12> :!start "C:\Program Files (x86)\Source Insight 4.0\sourceinsight4.exe" -i +<C-R>=expand(line("."))<CR> %<CR>
+
+" 新建文件，导入自定义模板
+"autocmd BufNewFile *.cpp 0r $VIMRUNTIME/template/demo.cpp | %s/__data__/\=strftime("%c")/g | %s/__macro__/\=toupper(bufname(""))/g | 19,20s/\./_/g
 
 " -----------------------------------------------------------------------------
 " 括号自动补全
@@ -649,51 +654,16 @@ endfunction
 " =============================================================================
 
 " -----------------------------------------------------------------------------
-"  < Vundle 插件管理工具配置 >
-" -----------------------------------------------------------------------------
-" 用于更方便的管理vim插件，具体用法参考 :h vundle 帮助
-" Vundle工具安装方法为在终端输入如下命令
-" git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-" 如果想在 windows 安装就必需先安装 "git for window"，可查阅网上资料
-
-"if g:islinux
-"    set rtp+=~/.vim/bundle/Vundle.vim/
-"    call vundle#rc()
-"else
-"    set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
-"    call vundle#rc('$VIM/vimfiles/bundle/')
-"endif
-
-" 使用Vundle来管理插件，这个必须要有。
-"Bundle 'VundleVim/Vundle.vim'
-
-" 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
-"Bundle 'a.vim'
-"Bundle 'cSyntaxAfter'
-"Bundle 'mattn/emmet-vim'
-"Bundle 'vim-javacompleteex'
-"Bundle 'Shougo/neocomplcache.vim'
-"Bundle 'scrooloose/nerdcommenter'
-"Bundle 'scrooloose/nerdtree'
-"Bundle 'OmniCppComplete'
-"Bundle 'msanders/snipmate.vim'
-"Bundle 'std_c.zip'
-"Bundle 'tpope/vim-surround'
-"Bundle 'scrooloose/syntastic'
-"Bundle 'AutoComplPop'
-"Bundle 'vim-airline'
-
-" -----------------------------------------------------------------------------
 "  < Vim-Plug 插件管理工具配置 >
 " -----------------------------------------------------------------------------
 " 插件使用：(1)Begin the section with call plug#begin()
-"          (2)List the plugins with Plug commands
-"          (3)call plug#end() to update &runtimepath and initialize plugin system
+"           (2)List the plugins with Plug commands
+"           (3)call plug#end() to update &runtimepath and initialize plugin system
 " 命令： (1)PlugStatus   用于检查插件的状态
-"       (2)PlugInstall  安装字体后必须设置
-"       (3)PlugUpdate   检查插件并更新
-"       (4)PlugClean    清除插件
-"       (5)PlugUpgrade  更新插件本身
+"        (2)PlugInstall  安装字体后必须设置
+"        (3)PlugUpdate   检查插件并更新
+"        (4)PlugClean    清除插件
+"        (5)PlugUpgrade  更新插件本身
 
 " Specify a directory for plugins
 " - For vim: $VIM/vimfiles/bundle
@@ -702,10 +672,11 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     call plug#begin('$VIM/vimfiles/bundle')
 
     " General {
-    	Plug 'scrooloose/nerdtree'
-    	Plug 'Xuyuanp/nerdtree-git-plugin'
+    	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    	"Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
+        Plug 'tpope/vim-fugitive'
     " }
 
     " General Programming {
@@ -714,10 +685,9 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
         "Plug 'scrooloose/nerdcommenter'
         "Plug 'Valloric/YouCompleteMe'
         "Plug 'othree/vim-autocomplpop'
-        "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-        "Plug 'scrooloose/nerdcommenter'
         "Plug 'godlygeek/tabular'
         "Plug 'luochen1990/rainbow'
+        Plug 'skywind3000/asyncrun.vim'
         if executable('ctags')
             "Plug 'majutsushi/tagbar'
         endif
@@ -762,18 +732,18 @@ endif
         else
             let Tlist_Ctags_Cmd = '/usr/bin/ctags'
         endif
-        let Tlist_Show_One_File=1        " 显示一个文件的tag
-        let Tlist_Exit_OnlyWindow=1        " 当只剩下Tlist的时候自动关闭
-        let Tlist_Use_Right_Window = 1    " 在右侧显示窗口
-        let Tlist_Auto_Open=0            " 自动打开TagList的window
-        let Tlist_Compact_Format = 0    " 压缩方式
-        let Tlist_Use_SingleClick = 1    " 打开tags用单击
-        let Tlist_WinWidth = 20            " 窗口宽度
-        let Tlist_File_Fold_Auto_Close=1    " close tag folders for inactive buffers
-        let Tlist_Enable_Fold_Column=1        " show the fold indiactor column in the taglist window
-        let Tlist_Auto_Update=1                " 自动更新TagList包含最新编辑的文件
-        let Tlist_Sort_Type="name"            " 按照名称排序
-        let Tlist_Process_File_Always=1        " 让TagList始终解释文件中的tag,不管TagList窗口有没有打开
+        let Tlist_Show_One_File=1        		" 显示一个文件的tag
+        let Tlist_Exit_OnlyWindow=1        		" 当只剩下Tlist的时候自动关闭
+        let Tlist_Use_Right_Window = 1    		" 在右侧显示窗口
+        let Tlist_Auto_Open=0           		" 自动打开TagList的window
+        let Tlist_Compact_Format = 0    		" 压缩方式
+        let Tlist_Use_SingleClick = 1    		" 打开tags用单击
+        let Tlist_WinWidth = 20            		" 窗口宽度
+        let Tlist_File_Fold_Auto_Close=1    	" close tag folders for inactive buffers
+        let Tlist_Enable_Fold_Column=1       	" show the fold indiactor column in the taglist window
+        let Tlist_Auto_Update=1                 " 自动更新TagList包含最新编辑的文件
+        let Tlist_Sort_Type="name"              " 按照名称排序
+        let Tlist_Process_File_Always=1         " 让TagList始终解释文件中的tag,不管TagList窗口有没有打开
 
         nnoremap <silent> <A-4> :TlistToggle<CR>
     " }
@@ -786,9 +756,8 @@ endif
         nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q *<CR>:set tags+=./tags<CR>
     " }
 
-
     " airline {
-        let g:airline#extensions#tabline#enabled = 1            " 开启tabline
+        let g:airline#extensions#tabline#enabled = 1               " 开启tabline
         let g:airline#extensions#tabline#left_sep = ' '            " tabline中当前buffer两端的分隔字符
         let g:airline#extensions#tabline#left_alt_sep = '|'        " tabline中未激活buffer两端的分隔字符
         let g:airline#extensions#tabline#buffer_nr_show = 1        " tabline中buffer显示编号
@@ -850,6 +819,10 @@ endif
             autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
         endif
     " }
+	
+	" AsyncRun {
+		let g:asyncrun_open=8
+	" }
 
     " PyMode {
         " Disable if python support not present
@@ -880,12 +853,3 @@ endif
                 \ }
     " }
 " }
-
-nnoremap <silent> <F12> :!start "C:\Program Files (x86)\Source Insight 4.0\sourceinsight4.exe" -i +<C-R>=expand(line("."))<CR> %<CR>
-
-
-autocmd BufNewFile *.cpp 0r $VIMRUNTIME/template/demo.cpp | %s/__data__/\=strftime("%c")/g | %s/__macro__/\=toupper(bufname(""))/g | 19,20s/\./_/g
-
-
-let NERDTreeShowHidden=1
-let g:asyncrun_open=8
