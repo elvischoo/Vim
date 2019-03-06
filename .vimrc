@@ -880,3 +880,12 @@ endif
                 \ }
     " }
 " }
+
+nnoremap <silent> <F12> :!start "C:\Program Files (x86)\Source Insight 4.0\sourceinsight4.exe" -i +<C-R>=expand(line("."))<CR> %<CR>
+
+
+autocmd BufNewFile *.cpp 0r $VIMRUNTIME/template/demo.cpp | %s/__data__/\=strftime("%c")/g | %s/__macro__/\=toupper(bufname(""))/g | 19,20s/\./_/g
+
+
+let NERDTreeShowHidden=1
+let g:asyncrun_open=8
