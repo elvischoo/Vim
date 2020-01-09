@@ -672,14 +672,16 @@ if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
     call plug#begin('$VIM/vimfiles/bundle')
 
     " General {
-        Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+        "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         "Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'tpope/vim-fugitive'
+        Plug 'vim-scripts/gtags.vim'
         Plug 'ludovicchabant/vim-gutentags'
         Plug 'skywind3000/gutentags_plus'
         Plug 'skywind3000/vim-preview'
+        Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     " }
 
     " General Programming {
@@ -768,9 +770,9 @@ endif
 
         " 同时开启 ctags 和 gtags 支持：
         let g:gutentags_modules = []
-        if executable('ctags')
-            let g:gutentags_modules += ['ctags']
-        endif
+        "if executable('ctags')
+            "let g:gutentags_modules += ['ctags']
+        "endif
         if executable('gtags-cscope') && executable('gtags')
             let g:gutentags_modules += ['gtags_cscope']
         endif
@@ -790,13 +792,34 @@ endif
     " }
 
     " vim-preview {
-        if g:csflag == 2 && executable('gtags-cscope')
+        if executable('gtags-cscope')
             " p预览 大P关闭
             autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
             autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-            noremap <Leader>u :PreviewScroll -1<cr> " 往上滚动预览窗口
-            noremap <Leader>d :PreviewScroll +1<cr> "  往下滚动预览窗口
+            noremap <leader>u :PreviewScroll -1<cr> " 往上滚动预览窗口
+            noremap <leader>d :PreviewScroll +1<cr> "  往下滚动预览窗口
         endif
+    " }
+
+    " LeaderF {
+
+        set pythonthreedll=python37.dll        " LeaderF 插件需要Python  dll文件需在环境变量中
+
+        let g:Lf_ShortcutF = '<c-p>'
+        noremap <leader>m :LeaderfMru<cr>
+        noremap <leader>f :LeaderfFunction!<cr>
+        noremap <leader>b :LeaderfBuffer<cr>
+        noremap <leader>t :LeaderfTag<cr>
+        let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+        let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+        let g:Lf_WorkingDirectoryMode = 'Ac'
+        let g:Lf_WindowHeight = 0.30
+        let g:Lf_CacheDirectory = expand('~/.vim/cache')
+        let g:Lf_ShowRelativePath = 0
+        let g:Lf_HideHelp = 1
+        let g:Lf_StlColorscheme = 'powerline'
+        let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
     " }
 
     " YouCompleteMe{
