@@ -425,8 +425,8 @@ set go-=L
 set guicursor=n-v-c:ver5
 
 " 设置水平行数和竖直列数
-set lines=35
-set columns=99
+" set lines=35
+" set columns=99
 
 " 状态行显示的内容（包括文件类型和解码）
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
