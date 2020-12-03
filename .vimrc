@@ -980,3 +980,9 @@ endif
                 \ }
     " }
 " }
+
+let g:python3_host_prog = "/usr/bin/python3"
+let g:let g:ycm_global_ycm_extra_conf='$vim/vimfiles/bundle/YouCompleteMe/.ycm_extra_conf.py'
+"disable ycm 语法检查
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
