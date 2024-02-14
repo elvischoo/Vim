@@ -669,7 +669,7 @@ endfunction
 " - For vim: $VIM/vimfiles/bundle
 " - Avoid using standard Vim directory names like 'plugin'
 if filereadable(expand("$VIM/vimfiles/autoload/plug.vim"))
-    call plug#begin('$VIM/vimfiles/bundle')
+    call plug#begin('$VIM/vimfiles/plugged')
 
     " General {
         "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
