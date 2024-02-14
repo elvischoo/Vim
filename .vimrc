@@ -822,67 +822,6 @@ endif
         let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
     " }
 
-    " YouCompleteMe{
-        " 补全配置脚本
-        let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
-        " 弹出列表时选择第1项的快捷键(默认为<TAB>和<Down>)
-        let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-        " 弹出列表时选择前1项的快捷键(默认为<S-TAB>和<UP>)
-        let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-        " 主动补全, 默认为<C-Space>
-        let g:ycm_key_invoke_completion = '<C-x>'
-        " 停止显示补全列表(防止列表影响视野),可以按<C-x>重新弹出
-        let g:ycm_key_list_stop_completion = ['<C-y>']
-
-        " 停止提示是否载入本地ycm_extra_conf文件
-        let g:ycm_confirm_extra_conf = 0
-
-        let g:ycm_seed_identifiers_with_syntax = 1
-        " 开启YCM 基于标签引擎
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        " 从第2个键入字符就开始罗列匹配项
-        let g:ycm_min_num_of_chars_for_completion = 2
-        " 开启输入注释时补全
-        let g:ycm_complete_in_comments = 1
-        " 开启输入字符串时补全
-        let g:ycm_complete_in_strings = 1
-        " 开启注释和字符串中收集补全
-        let g:ycm_collect_identifiers_from_comments_and_strings = 1
-        " 关闭函数预览
-        let g:ycm_add_preview_to_completeopt = 0
-        " 关闭代码诊断
-        let g:ycm_show_diagnostics_ui = 0
-        " 设置标识符补全最小字符数
-        let g:ycm_min_num_identifier_candidate_chars = 2
-        " 设置以下语言自动弹出语义补全(默认需要输入'.->::'或者按主动补全组合键)
-        let g:ycm_semantic_triggers =  {
-                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-                    \ 'cs,lua,javascript': ['re!\w{2}'],
-                    \ }
-        " 白名单(以外的文件类型不分析补全)
-        let g:ycm_filetype_whitelist = {
-                    \ "s":1,
-                    \ "S":1,
-                    \ "c":1,
-                    \ "C":1,
-                    \ "cc":1,
-                    \ "cxx":1,
-                    \ "cpp":1,
-                    \ "py":1,
-                    \ "go":1,
-                    \ "java":1,
-                    \ "objc":1,
-                    \ "sh":1,
-                    \ "zsh":1,
-                    \ "zimbu":1,
-                    \ "txt":1,
-                    \ "conf":1,
-                    \ "vimrc":1,
-                    \ "bashrc":1,
-                    \ }
-    " }
-
     " airline {
         let g:airline#extensions#tabline#enabled = 1               " 开启tabline
         let g:airline#extensions#tabline#left_sep = ' '            " tabline中当前buffer两端的分隔字符
@@ -982,7 +921,4 @@ endif
 " }
 
 let g:python3_host_prog = "/usr/bin/python3"
-let g:let g:ycm_global_ycm_extra_conf='$vim/vimfiles/bundle/YouCompleteMe/.ycm_extra_conf.py'
-"disable ycm 语法检查
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
+let g:pythonthree_dll = "D:\Program Files\Python312\python312.dll"
